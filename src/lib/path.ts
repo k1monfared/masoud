@@ -7,6 +7,7 @@ export function path(p: string): string {
   if (p.startsWith('//')) return p;
   if (p.startsWith('#')) return p;
   if (p.startsWith('?')) return p;
+  if (p === '/') return BASE || '/';
   if (p.startsWith('/')) return `${BASE}${p}`;
   return `${BASE}/${p}`;
 }
