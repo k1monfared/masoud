@@ -1,11 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HomeHero from '../components/HomeHero.astro';
 import GoalGrid from '../components/GoalGrid.astro';
 import { site } from '../data/site';
 ---
 <BaseLayout title={site.firmName}>
-  <HomeHero />
   <div id="services">
     <GoalGrid />
   </div>
