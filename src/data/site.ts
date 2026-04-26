@@ -42,13 +42,13 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  firmName: 'Masoud Immigration Inc.',
-  practitionerName: 'Masoud',
+  firmName: 'MANZOURI Immigration',
+  practitionerName: 'Manzouri',
   rcicLicense: 'R000000',
   founded: 2023,
   tagline: 'Trust your Canadian immigration journey to us.',
   subTagline: 'Trusted RCIC-IRB consulting firm based in Victoria. Free first assessment, plain-English guidance from first call to landed status.',
-  aboutBlurb: 'Established in 2023, Masoud Immigration Inc. is a Canadian corporation authorized by the College of Immigration and Citizenship Consultants. Based in Victoria, British Columbia, we provide professional and personalized immigration services to individuals and organizations worldwide. We help our clients achieve their immigration goals lawfully, safely, and efficiently.',
+  aboutBlurb: 'Established in 2023, MANZOURI Immigration is a Canadian corporation authorized by the College of Immigration and Citizenship Consultants. Based in Victoria, British Columbia, we provide professional and personalized immigration services to individuals and organizations worldwide. We help our clients achieve their immigration goals lawfully, safely, and efficiently.',
   yearsExperience: 3,
   clientsServed: 200,
   phone: '+1 (778) 000-0000',

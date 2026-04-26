@@ -1,12 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import { site, bookingHref } from '../data/site';
+import { bookingHref } from '../data/site';
 
 const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
 ---
 <header class="topnav">
   <div class="container topnav__inner">
-    <a class="topnav__brand" href="/">{site.firmName}</a>
+    <a class="topnav__brand" href="/"><strong>Manzouri</strong> Immigration</a>
 
     <nav class="topnav__desktop" aria-label="Primary">
       <details class="topnav__dd">
@@ -57,7 +57,6 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
     position: sticky;
     top: 0;
     z-index: 50;
-    border-bottom: 1px solid var(--color-border);
     transition: box-shadow 200ms ease;
   }
   .topnav.is-scrolled {
@@ -66,10 +65,15 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 64px; }
   .topnav__brand {
     color: inherit;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.15rem;
-    letter-spacing: 0.02em;
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .topnav__brand strong {
+    font-weight: 900;
+    letter-spacing: 0.22em;
   }
 
   .topnav__desktop { display: none; }
@@ -111,8 +115,6 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
     min-width: 260px;
     background: var(--color-surface);
     color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
     box-shadow: 0 12px 28px rgba(44, 58, 78, 0.12);
     padding: var(--space-2);
     display: flex;
@@ -139,7 +141,6 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
 
   .drawer {
     background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
     padding: var(--space-3) var(--space-4) var(--space-4);
   }
   .drawer[hidden] { display: none; }

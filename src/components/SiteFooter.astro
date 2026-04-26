@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 <footer class="sitefoot">
   <div class="container sitefoot__inner">
     <div class="sitefoot__brand">
-      <p class="sitefoot__name">{site.firmName}</p>
+      <p class="sitefoot__name"><strong>Manzouri</strong> Immigration</p>
       <p class="sitefoot__line">RCIC #{site.rcicLicense} · {site.address.replace('\n', ', ')}</p>
     </div>
     <div class="sitefoot__contact">
@@ -24,7 +24,6 @@ const year = new Date().getFullYear();
     background: var(--color-surface);
     color: var(--color-text-muted);
     margin-top: var(--space-7);
-    border-top: 1px solid var(--color-border);
     font-size: var(--font-size-sm);
   }
   .sitefoot__inner {
@@ -45,9 +44,15 @@ const year = new Date().getFullYear();
   .sitefoot__name {
     margin: 0 0 2px 0;
     color: var(--color-text);
-    font-weight: 600;
-    font-family: var(--font-display);
-    font-size: 1rem;
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .sitefoot__name strong {
+    font-weight: 900;
+    letter-spacing: 0.22em;
   }
   .sitefoot__line { margin: 0; }
   .sitefoot__contact {
@@ -61,10 +66,9 @@ const year = new Date().getFullYear();
     color: var(--color-primary);
     font-weight: 600;
   }
-  .sitefoot__sep { color: var(--color-border); }
+  .sitefoot__sep { color: var(--color-text-muted); opacity: 0.5; }
   .sitefoot__strip {
-    border-top: 1px solid var(--color-border);
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-3) var(--space-4) var(--space-5);
     text-align: center;
     font-size: 0.78rem;
   }

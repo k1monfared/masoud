@@ -13,20 +13,16 @@ const { title, slug, icon } = Astro.props;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: var(--space-2);
     background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
     color: var(--color-text);
     text-decoration: none;
     text-align: center;
     padding: var(--space-5) var(--space-3);
     min-height: 140px;
-    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    transition: background 150ms ease;
   }
   .goaltile:hover {
     text-decoration: none;
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(44, 58, 78, 0.08);
+    background: var(--color-surface-2);
   }
   .goaltile__icon {
     font-size: 32px;
