@@ -36,17 +36,6 @@ const styleAttr = image ? `--tile-image: url('${image}')` : undefined;
     background-position: center;
     min-height: 240px;
   }
-  .goaltile--photo::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(20, 48, 77, 0.45) 0%, rgba(20, 48, 77, 0.85) 100%);
-    z-index: -1;
-    transition: background 200ms ease;
-  }
-  .goaltile--photo:hover::before {
-    background: linear-gradient(180deg, rgba(20, 48, 77, 0.55) 0%, rgba(20, 48, 77, 0.92) 100%);
-  }
 
   .goaltile__inner {
     display: inline-flex;
@@ -66,7 +55,10 @@ const styleAttr = image ? `--tile-image: url('${image}')` : undefined;
   }
   .goaltile--photo .goaltile__icon {
     color: #fff;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+    filter:
+      drop-shadow(0 0 1px rgba(0, 0, 0, 1))
+      drop-shadow(0 0 2px rgba(0, 0, 0, 0.85))
+      drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
   }
   .goaltile__title {
     font-weight: 700;
@@ -75,9 +67,8 @@ const styleAttr = image ? `--tile-image: url('${image}')` : undefined;
     letter-spacing: 0.01em;
   }
   .goaltile--photo .goaltile__title {
-    font-size: 1.2rem;
-    text-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.5),
-      0 2px 10px rgba(0, 0, 0, 0.55);
+    font-size: 1.25rem;
+    -webkit-text-stroke: 2px rgba(0, 0, 0, 0.9);
+    paint-order: stroke fill;
   }
 </style>
