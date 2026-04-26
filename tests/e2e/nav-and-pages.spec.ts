@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 
+const BASE = '/masoud';
 const ROUTES = ['/', '/about', '/resources', '/contact', '/immigrate/cec'];
 
 test.describe('top nav book consultation link', () => {
@@ -7,7 +8,7 @@ test.describe('top nav book consultation link', () => {
 
   for (const route of ROUTES) {
     test(`book consultation pill visible on ${route}`, async ({ page }) => {
-      await page.goto(route);
+      await page.goto(route === '/' ? BASE : `${BASE}${route}`);
       const pill = page.locator('header .topnav__pill').first();
       await expect(pill).toBeVisible();
       await expect(pill).toHaveText(/Book consultation/i);
@@ -19,14 +20,14 @@ test.describe('top nav book consultation link', () => {
 });
 
 test('about page heading visible', async ({ page }) => {
-  await page.goto('/about');
+  await page.goto(`${BASE}/about`);
   const heading = page.getByRole('heading', { level: 1 });
   await expect(heading).toBeVisible();
   await expect(heading).not.toHaveText('');
 });
 
 test('resources index links to a renderable article', async ({ page }) => {
-  await page.goto('/resources');
+  await page.goto(`${BASE}/resources`);
   const cards = page.locator('a.article');
   await expect(cards.first()).toBeVisible();
   const count = await cards.count();
