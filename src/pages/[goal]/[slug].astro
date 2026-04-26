@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BackLink from '../../components/BackLink.astro';
 import RelatedPrograms from '../../components/RelatedPrograms.astro';
 import ConsultationCTA from '../../components/ConsultationCTA.astro';
+import FactBox from '../../components/FactBox.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 
 export async function getStaticPaths() {
   const programs = await getCollection('programs');
@@ -35,7 +37,14 @@ const { Content } = await program.render();
   />
   <h1>{program.data.title}</h1>
   <p class="lede">{program.data.summary}</p>
+  <FactBox
+    eligibilityBullets={program.data.eligibilityBullets}
+    processingTime={program.data.processingTime}
+    languageRequirement={program.data.languageRequirement}
+    governmentFeeRange={program.data.governmentFeeRange}
+  />
   <div class="prose"><Content /></div>
+  <FAQAccordion faqs={program.data.faqs} />
   <ConsultationCTA />
   <RelatedPrograms items={related} />
 </BaseLayout>
