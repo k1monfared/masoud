@@ -3,6 +3,8 @@ dist/
 .astro/
 .env
 .DS_Store
+test-results/
+playwright-report/
 
 # Claude Code
 .claude/cache/
