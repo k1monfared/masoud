@@ -307,10 +307,9 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
       });
       if (ham) ham.setAttribute('aria-expanded', 'true');
       document.body.classList.add('is-menu-open');
-      try { history.pushState({ menuOpen: true }, ''); } catch (e) {}
     }
 
-    function closeMenu(viaPop) {
+    function closeMenu() {
       var drawer = document.getElementById('sitemenu');
       var backdrop = document.querySelector('.drawer-backdrop');
       var ham = document.querySelector('.topnav__ham');
@@ -326,9 +325,6 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
           backdrop.setAttribute('hidden', '');
         }
       }, 280);
-      if (!viaPop && history.state && history.state.menuOpen) {
-        try { history.back(); } catch (e) {}
-      }
     }
 
     function setScrolled() {
@@ -381,9 +377,6 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
 
     // One-time global listeners
     window.addEventListener('scroll', setScrolled, { passive: true });
-    window.addEventListener('popstate', function () {
-      if (menuOpen) closeMenu(true);
-    });
 
     document.addEventListener('astro:page-load', setup);
     if (document.readyState !== 'loading') setup();
