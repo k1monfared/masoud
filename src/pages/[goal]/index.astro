@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BackLink from '../../components/BackLink.astro';
+import ProgramListItem from '../../components/ProgramListItem.astro';
+
+export async function getStaticPaths() {
+  const goals = await getCollection('goals');
+  return goals.map(g => ({ params: { goal: g.slug }, props: { goalEntry: g } }));
+}
+
+type Program = Awaited<ReturnType<typeof getCollection<'programs'>>>[number];
+
+const { goalEntry } = Astro.props;
+const allPrograms = await getCollection('programs', p => p.data.goal === goalEntry.slug);
+const sortedPrograms = allPrograms.sort((a, b) => a.data.order - b.data.order);
+
+const grouped = new Map<string, Program[]>();
+for (const p of sortedPrograms) {
+  const cat = p.data.category;
+  if (!grouped.has(cat)) grouped.set(cat, []);
+  grouped.get(cat)!.push(p);
+}
+const categories = Array.from(grouped.entries());
+
+const { Content } = await goalEntry.render();
+---
+<BaseLayout title={goalEntry.data.title}>
+  <BackLink href="/" label="Home" />
+  <h1>{goalEntry.data.title}</h1>
+  {goalEntry.data.intro && <p class="intro">{goalEntry.data.intro}</p>}
+  <div class="goalbody"><Content /></div>
+
+  {categories.map(([cat, items]) => (
+    <section class="catgroup" id={cat.replace(/\s+/g, '-').toLowerCase()}>
+      <h2 class="catgroup__title">{cat}</h2>
+      {items.map(p => (
+        <ProgramListItem
+          title={p.data.title}
+          href={`/${goalEntry.slug}/${p.slug}`}
+          summary={p.data.summary}
+        />
+      ))}
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  h1 { font-size: var(--font-size-2xl); color: var(--color-primary); margin: 0 0 var(--space-2) 0; }
+  .intro { color: var(--color-text-muted); margin: 0 0 var(--space-4) 0; }
+  .goalbody { margin-bottom: var(--space-5); }
+  .catgroup { margin: var(--space-5) 0; }
+  .catgroup__title {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-2) 0;
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--color-border);
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+interface Props { title: string; href: string; summary?: string; }
+const { title, href, summary } = Astro.props;
+---
+<a class="prog" href={href}>
+  <span class="prog__body">
+    <span class="prog__title">{title}</span>
+    {summary && <span class="prog__summary">{summary}</span>}
+  </span>
+  <span class="prog__chev" aria-hidden="true">›</span>
+</a>
+
+<style>
+  .prog {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-3);
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    padding: var(--space-3) var(--space-4);
+    min-height: var(--tap-target);
+    color: var(--color-text);
+    margin: var(--space-1) 0;
+  }
+  .prog__body { display: flex; flex-direction: column; gap: 2px; }
+  .prog__title { font-weight: 600; color: var(--color-primary); }
+  .prog__summary { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+  .prog__chev { color: var(--color-text-muted); font-size: var(--font-size-lg); }
+</style>
