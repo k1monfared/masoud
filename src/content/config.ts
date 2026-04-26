@@ -7,6 +7,7 @@ const goals = defineCollection({
     icon: z.string(),
     order: z.number(),
     intro: z.string().optional(),
+    image: z.string().optional(),
   }),
 });
 

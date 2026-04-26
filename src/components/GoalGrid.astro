@@ -9,7 +9,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   <p class="goalgrid__sub">Pick the path that fits your situation. We map the rest together.</p>
   <div class="goalgrid__tiles">
     {goals.map(g => (
-      <GoalTile title={g.data.title} slug={g.slug} icon={g.data.icon} />
+      <GoalTile title={g.data.title} slug={g.slug} icon={g.data.icon} image={g.data.image} />
     ))}
   </div>
 </section>

@@ -1,10 +1,11 @@
 ---
 import Icon from './Icon.astro';
 import { path } from '../lib/path';
-interface Props { title: string; slug: string; icon: string; }
-const { title, slug, icon } = Astro.props;
+interface Props { title: string; slug: string; icon: string; image?: string; }
+const { title, slug, icon, image } = Astro.props;
+const styleAttr = image ? `--tile-image: url('${image}')` : undefined;
 ---
-<a class="goaltile" href={path(`/${slug}`)}>
+<a class={`goaltile${image ? ' goaltile--photo' : ''}`} href={path(`/${slug}`)} style={styleAttr}>
   <span class="goaltile__icon" aria-hidden="true"><Icon name={icon} size={32} strokeWidth={1.4} /></span>
   <span class="goaltile__title">{title}</span>
   <span class="goaltile__more">Learn more</span>
@@ -12,31 +13,58 @@ const { title, slug, icon } = Astro.props;
 
 <style>
   .goaltile {
+    position: relative;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: var(--space-2);
     background: var(--color-surface);
     color: var(--color-text);
     text-decoration: none;
     text-align: center;
-    padding: var(--space-5) var(--space-3);
-    min-height: 140px;
-    transition: background 150ms ease;
+    padding: var(--space-6) var(--space-3);
+    min-height: 200px;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 200ms ease;
   }
-  .goaltile:hover {
-    text-decoration: none;
-    background: var(--color-surface-2);
+  .goaltile:hover { text-decoration: none; transform: translateY(-2px); }
+
+  .goaltile--photo {
+    color: #fff;
+    background-image: var(--tile-image);
+    background-size: cover;
+    background-position: center;
+    min-height: 240px;
   }
+  .goaltile--photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 48, 77, 0.35) 0%, rgba(20, 48, 77, 0.85) 100%);
+    z-index: -1;
+    transition: background 200ms ease;
+  }
+  .goaltile--photo:hover::before {
+    background: linear-gradient(180deg, rgba(20, 48, 77, 0.45) 0%, rgba(20, 48, 77, 0.92) 100%);
+  }
+
   .goaltile__icon {
     color: var(--color-primary);
     line-height: 1;
     margin-bottom: var(--space-2);
     display: inline-flex;
   }
+  .goaltile--photo .goaltile__icon {
+    color: #fff;
+  }
   .goaltile__title {
     font-weight: 700;
-    color: var(--color-text);
+    color: inherit;
     font-size: 1rem;
     letter-spacing: 0.01em;
+  }
+  .goaltile--photo .goaltile__title {
+    font-size: 1.15rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
   .goaltile__more {
     color: var(--color-primary);
@@ -45,5 +73,9 @@ const { title, slug, icon } = Astro.props;
     margin-top: var(--space-1);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+  }
+  .goaltile--photo .goaltile__more {
+    color: #fff;
+    opacity: 0.9;
   }
 </style>
