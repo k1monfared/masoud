@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BackLink from '../../components/BackLink.astro';
-import ConsultationCTA from '../../components/ConsultationCTA.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { path } from '../../lib/path';
 
@@ -32,8 +31,6 @@ const { Content } = await article.render();
     <p class="lede">{article.data.summary}</p>
     <div class="prose"><Content /></div>
   </article>
-
-  <ConsultationCTA />
 
   {others.length > 0 && (
     <section class="more">

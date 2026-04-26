@@ -4,9 +4,6 @@ import GoalTile from './GoalTile.astro';
 const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
 ---
 <section class="goalgrid">
-  <p class="goalgrid__eyebrow">What do you need help with</p>
-  <h2 class="goalgrid__heading">Canada Immigration Services</h2>
-  <p class="goalgrid__sub">Pick the path that fits your situation. We map the rest together.</p>
   <div class="goalgrid__tiles">
     {goals.map(g => (
       <GoalTile title={g.data.title} slug={g.slug} icon={g.data.icon} image={g.data.image} />
@@ -15,29 +12,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
 </section>
 
 <style>
-  .goalgrid {
-    text-align: center;
-    margin: var(--space-6) 0;
-  }
-  .goalgrid__eyebrow {
-    color: var(--color-primary);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 600;
-    margin: 0 0 var(--space-2) 0;
-  }
-  .goalgrid__heading {
-    font-size: 2rem;
-    margin: 0 0 var(--space-2) 0;
-    color: var(--color-text);
-    font-weight: 600;
-  }
-  .goalgrid__sub {
-    color: var(--color-text-muted);
-    margin: 0 auto var(--space-6);
-    max-width: 44ch;
-  }
+  .goalgrid { margin: 0; }
   .goalgrid__tiles {
     display: grid;
     grid-template-columns: 1fr;
@@ -46,7 +21,6 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
     margin: 0 auto;
   }
   @media (min-width: 720px) {
-    .goalgrid__heading { font-size: 2.25rem; }
     .goalgrid__tiles { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
   }
 </style>

@@ -2,7 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/global.css';
 import HamburgerNav from '../components/HamburgerNav.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import BookFAB from '../components/BookFAB.astro';
 import { ViewTransitions } from 'astro:transitions';
 
 interface Props { title: string; description?: string; }
@@ -24,7 +24,7 @@ const { title, description = 'Canadian immigration services.' } = Astro.props;
   <body>
     <HamburgerNav />
     <main class="container main"><slot /></main>
-    <SiteFooter />
+    <BookFAB />
   </body>
 </html>
 

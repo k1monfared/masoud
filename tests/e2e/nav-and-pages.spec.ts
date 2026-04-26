@@ -3,16 +3,16 @@ import { test, expect } from '@playwright/test';
 const BASE = '/masoud';
 const ROUTES = ['/', '/about', '/resources', '/contact', '/immigrate/cec'];
 
-test.describe('top nav book consultation link', () => {
+test.describe('book consultation FAB', () => {
   test.use({ viewport: { width: 1024, height: 800 } });
 
   for (const route of ROUTES) {
-    test(`book consultation pill visible on ${route}`, async ({ page }) => {
+    test(`book consultation FAB visible on ${route}`, async ({ page }) => {
       await page.goto(route === '/' ? BASE : `${BASE}${route}`);
-      const pill = page.locator('header .topnav__pill').first();
-      await expect(pill).toBeVisible();
-      await expect(pill).toHaveText(/Book consultation/i);
-      const href = await pill.getAttribute('href');
+      const fab = page.locator('a.bookfab').first();
+      await expect(fab).toBeVisible();
+      await expect(fab).toHaveText(/Book consultation/i);
+      const href = await fab.getAttribute('href');
       expect(href).toBeTruthy();
       expect(href!.endsWith('/contact') || href!.startsWith('http')).toBe(true);
     });

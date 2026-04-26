@@ -4,10 +4,11 @@ const BASE = '/masoud';
 
 test('homepage to detail page in two taps', async ({ page }) => {
   await page.goto(BASE);
-  await expect(page.getByRole('heading', { name: /Canada Immigration Services/ })).toBeVisible();
+  // homepage is just the goal grid; first goal tile must be present
+  await expect(page.locator('.goaltile').first()).toBeVisible();
 
-  // tap 1: choose goal (scope to the goal grid, not footer/nav links)
-  await page.locator('#services').getByRole('link', { name: /Immigrate to Canada/ }).click();
+  // tap 1: choose goal
+  await page.locator('.goaltile').filter({ hasText: 'Immigrate to Canada' }).click();
   await expect(page.getByRole('heading', { name: 'Immigrate to Canada' })).toBeVisible();
 
   // tap 2: choose program (scope to main, avoids related-programs / footer matches)
@@ -17,8 +18,8 @@ test('homepage to detail page in two taps', async ({ page }) => {
   // back link visible
   await expect(page.getByRole('link', { name: /All Express Entry programs/ })).toBeVisible();
 
-  // CTA visible (multiple "Book consultation" links exist: nav pill + page CTA)
-  await expect(page.getByRole('link', { name: /Book consultation/ }).first()).toBeVisible();
+  // Book FAB always present (floats over the page)
+  await expect(page.locator('a.bookfab').first()).toBeVisible();
 });
 
 test('every homepage tile leads somewhere', async ({ page }) => {
