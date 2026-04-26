@@ -78,7 +78,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   .topnav.is-scrolled {
     box-shadow: 0 4px 14px rgba(44, 58, 78, 0.08);
   }
-  .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 80px; padding: var(--space-3) var(--space-2); }
+  .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-5) 0; }
   .topnav__brand {
     color: inherit;
     display: inline-flex;
@@ -191,11 +191,11 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
 
   .drawer {
     position: fixed;
-    top: 80px;
+    top: 92px;
     right: var(--space-3);
     width: 85%;
     max-width: 360px;
-    max-height: calc(100vh - 80px - var(--space-4));
+    max-height: calc(100vh - 92px - var(--space-4));
     background: var(--color-surface);
     z-index: 70;
     padding: var(--space-2) var(--space-4) var(--space-3);
