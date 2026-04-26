@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BackLink from '../components/BackLink.astro';
 import ConsultationCTA from '../components/ConsultationCTA.astro';
+import Accreditations from '../components/Accreditations.astro';
 import { site } from '../data/site';
 ---
 {/* TODO(copy): rewrite the entire About narrative in your own voice. */}
@@ -10,13 +11,19 @@ import { site } from '../data/site';
 
   <section class="about__hero">
     <div class="about__photo" aria-hidden="true">
-      <span>Photo</span>
+      <span>Your photo</span>
     </div>
-    <div>
+    <div class="about__hero-text">
+      <p class="about__eyebrow">About the firm</p>
       <h1>{site.practitionerName}</h1>
       <p class="about__role">Regulated Canadian Immigration Consultant. License #{site.rcicLicense}.</p>
-      <p class="about__role about__role--muted">{site.yearsExperience}+ years. {site.clientsServed}+ clients guided.</p>
+      <p class="about__role about__role--muted">Founded {site.founded}. {site.yearsExperience}+ years guiding {site.clientsServed}+ clients.</p>
     </div>
+  </section>
+
+  <section class="about__section">
+    <h2>Trusted Canadian immigration consulting firm</h2>
+    <p class="about__lead">{site.aboutBlurb}</p>
   </section>
 
   <section class="about__section">
@@ -33,21 +40,7 @@ import { site } from '../data/site';
   </section>
 
   <section class="about__section">
-    <h2>Credentials and memberships</h2>
-    <ul>
-      <li>Regulated Canadian Immigration Consultant (RCIC), License #{site.rcicLicense}</li>
-      <li>Member, College of Immigration and Citizenship Consultants</li>
-      <li>Continuing professional development completed annually</li>
-    </ul>
-  </section>
-
-  <section class="about__section">
-    <h2>Languages I work in</h2>
-    <p>{site.languages.join(', ')}. I use the language you think in, not the one the form is printed in.</p>
-  </section>
-
-  <section class="about__section">
-    <h2>How I work</h2>
+    <h2>Why work with me</h2>
     <div class="about__principles">
       <article class="principle">
         <h3>Free first call</h3>
@@ -64,33 +57,58 @@ import { site } from '../data/site';
     </div>
   </section>
 
+  <section class="about__section">
+    <h2>Languages I work in</h2>
+    <p>{site.languages.join(', ')}. I use the language you think in, not the one the form is printed in.</p>
+  </section>
+
+  <Accreditations />
+
   <ConsultationCTA />
 </BaseLayout>
 
 <style>
   h1 {
-    font-size: var(--font-size-2xl);
-    color: var(--color-primary);
+    font-size: 2rem;
+    color: var(--color-text);
     margin: 0 0 var(--space-1) 0;
+    font-weight: 600;
   }
   h2 {
-    font-size: var(--font-size-lg);
-    color: var(--color-primary);
+    font-size: 1.5rem;
+    color: var(--color-text);
     margin: 0 0 var(--space-3) 0;
+    font-weight: 600;
+  }
+  .about__eyebrow {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin: 0 0 var(--space-2) 0;
   }
   .about__hero {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    margin: var(--space-3) 0 var(--space-6);
-    align-items: flex-start;
+    margin: var(--space-4) 0 var(--space-6);
+    align-items: center;
+    text-align: center;
   }
+  .about__hero-text { max-width: 520px; }
   @media (min-width: 720px) {
-    .about__hero { flex-direction: row; align-items: center; gap: var(--space-5); }
+    .about__hero {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-6);
+      text-align: left;
+    }
+    h1 { font-size: 2.5rem; }
   }
   .about__photo {
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: var(--color-surface-2);
     display: flex;
@@ -98,16 +116,19 @@ import { site } from '../data/site';
     justify-content: center;
     color: var(--color-text-muted);
     font-size: var(--font-size-sm);
+    font-style: italic;
     border: 1px solid var(--color-border);
     flex-shrink: 0;
+  }
+  @media (min-width: 720px) {
+    .about__photo { width: 240px; height: 240px; }
   }
   .about__role { margin: var(--space-1) 0; color: var(--color-text); }
   .about__role--muted { color: var(--color-text-muted); font-size: var(--font-size-sm); }
 
   .about__section { margin: var(--space-6) 0; }
-  .about__section p { line-height: 1.6; margin: var(--space-2) 0; }
-  .about__section ul { padding-left: 1.2em; margin: 0; }
-  .about__section li { margin: var(--space-1) 0; line-height: 1.6; }
+  .about__section p { line-height: 1.7; margin: var(--space-3) 0; }
+  .about__lead { font-size: 1.05rem; color: var(--color-text-muted); }
 
   .about__principles {
     display: grid;
@@ -127,6 +148,7 @@ import { site } from '../data/site';
     font-size: var(--font-size-base);
     color: var(--color-primary);
     margin: 0 0 var(--space-2) 0;
+    font-weight: 600;
   }
-  .principle p { margin: 0; font-size: var(--font-size-sm); color: var(--color-text-muted); line-height: 1.5; }
+  .principle p { margin: 0; font-size: var(--font-size-sm); color: var(--color-text-muted); line-height: 1.6; }
 </style>

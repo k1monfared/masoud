@@ -22,6 +22,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
       </details>
       <a class="topnav__link" href="/about">About</a>
       <a class="topnav__link" href="/resources">Resources</a>
+      <a class="topnav__link" href="/contact">Contact</a>
       <a class="topnav__pill" href={bookingHref}>Book consultation</a>
     </nav>
 
@@ -53,8 +54,14 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   .topnav {
     background: var(--color-nav-bg);
     color: var(--color-nav-text);
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 50;
     border-bottom: 1px solid var(--color-border);
+    transition: box-shadow 200ms ease;
+  }
+  .topnav.is-scrolled {
+    box-shadow: 0 4px 14px rgba(44, 58, 78, 0.08);
   }
   .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 64px; }
   .topnav__brand {
@@ -158,6 +165,17 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
 </style>
 
 <script>
+  // Sticky nav scroll shadow
+  const topnav = document.querySelector('.topnav');
+  if (topnav) {
+    const setScrolled = () => {
+      if (window.scrollY > 4) topnav.classList.add('is-scrolled');
+      else topnav.classList.remove('is-scrolled');
+    };
+    setScrolled();
+    window.addEventListener('scroll', setScrolled, { passive: true });
+  }
+
   // Hamburger toggle
   const btn = document.querySelector('.topnav__ham');
   const menu = document.getElementById('sitemenu');
