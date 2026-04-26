@@ -179,11 +179,12 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
     position: fixed;
     inset: 0;
     background: rgba(20, 48, 77, 0.45);
-    z-index: 60;
+    z-index: 65;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 220ms ease;
   }
-  .drawer-backdrop.is-visible { opacity: 1; }
+  .drawer-backdrop.is-visible { opacity: 1; pointer-events: auto; }
   @media (min-width: 720px) {
     .drawer-backdrop { display: none !important; }
   }
