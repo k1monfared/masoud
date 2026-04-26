@@ -1,0 +1,119 @@
+- Website Structure Design
+    - Date: 2026-04-25
+    - Status: Draft, awaiting user review
+    - Stage: Pre-MVP, structural design only
+
+- Goal
+    - Build a public-facing website for an immigration services firm.
+    - Primary user task: find the relevant service and reach the page for it as quickly as possible.
+    - Audience: prospective clients researching Canadian immigration on a phone.
+    - Out of scope for this spec: visual design system, copy, the consultation booking flow, analytics, search, French content.
+
+- Constraints and decisions
+    - Mobile first. Desktop is a graceful expansion of the mobile layout, not the primary target.
+    - English only for v1. URLs do not carry a language prefix. Bilingual support is a future addition that would namespace under /en/ and /fr/.
+    - Info first content. Each detail page provides one consultation CTA at the bottom, no sticky banners or aggressive lead capture.
+    - Static site, generated from Markdown. Astro is the recommended generator because it suits content sites, supports lightweight client transitions, and ships minimal JavaScript.
+    - Page transitions use a 200ms fade. Implementation uses Astro's View Transitions API or a small CSS class, no SPA framework.
+
+- Information architecture
+    - Three page types
+        - Homepage at /
+        - Goal page at /:goal (e.g., /immigrate, /study)
+        - Detail page at /:goal/:slug (e.g., /immigrate/express-entry-cec)
+    - Goals derived from content_init.txt Services section
+        - immigrate: Immigrate to Canada
+        - sponsor: Sponsor a Family Member
+        - study: Study in Canada
+        - work: Work in Canada
+        - visit: Visit Canada
+        - invest: Invest in Canada
+        - hire: Hire a Foreign Worker (for employers)
+        - refugee: Refugee and Humanitarian Immigration
+        - appeals: Appeals and Enforcement
+    - Open question: Canadian Citizenship is listed under Individuals and Families in content_init.txt but not as its own goal in the Services list. The current plan is to place it as a section within /immigrate. Confirm during content authoring.
+
+- Page anatomy: Homepage
+    - Top nav
+        - Brand wordmark on the left.
+        - Hamburger icon on the right opens a full sitemap drawer.
+    - Hero
+        - Question prompt: "I want to..."
+        - One line of supporting copy.
+    - Goal grid
+        - Mobile: 2 columns of tiles, last row spans both columns for the ninth item if needed (Appeals).
+        - Desktop: 3 columns of tiles.
+        - Each tile shows an icon, the goal name, and links to /:goal.
+    - Footer
+        - Contact summary, address, social, copyright.
+    - Decision: no homepage search bar in v1. The goal grid is the entry point.
+
+- Page anatomy: Goal page
+    - Top nav same as homepage, with hamburger.
+    - Breadcrumb: "‹ Home" link.
+    - Page title: the goal name (e.g., "Immigrate to Canada").
+    - Optional intro paragraph (1 to 2 sentences), authored per goal.
+    - Grouped list
+        - Section heading per program category (e.g., Express Entry, Provincial Nominee Programs, Family Sponsorship, Pilot Programs).
+        - Each list row is a single tappable strip with the program name and a chevron.
+        - On mobile, each row is at least 44px tall for thumb tapping.
+    - Footer same as homepage.
+
+- Page anatomy: Detail page
+    - Top nav same as other pages.
+    - Back link at the top: "‹ All [category] programs". Returns the user to the goal page anchored at the relevant section.
+    - Page title: the program name.
+    - Body content authored in Markdown
+        - One paragraph plain language summary.
+        - Eligibility section.
+        - Processing time, if applicable.
+        - Required documents, if applicable.
+        - Notes or eligibility nuances, if applicable.
+    - Single CTA at the bottom of the body: "Book a consultation" linking to a contact route. The contact page itself is out of scope for this spec.
+    - Related programs block at the bottom
+        - Heading: "Related programs"
+        - Plain text list of sibling programs from the same category, each linked.
+    - Footer same as other pages.
+
+- Mobile interaction patterns
+    - Hamburger drawer: opens a full menu with all goals and recent links. Closes on outside tap.
+    - Page transitions: 200ms cross fade between any two routes. Fallback to instant navigation when the browser does not support View Transitions.
+    - No sidebar. Sibling navigation on detail pages is provided by the back link and the related-programs block.
+    - All tap targets at least 44px in height.
+
+- Content model
+    - Content lives in src/content/ as Markdown with frontmatter.
+    - One folder per goal (immigrate, study, etc.).
+    - One Markdown file per service program. Frontmatter fields:
+        - title: program name shown to users
+        - slug: URL slug
+        - category: section heading on the goal page (e.g., "Express Entry")
+        - order: integer for ordering within a category
+        - summary: 1 line description used in the goal page list and any sibling listings
+    - Each goal has an _index.md (or similar) holding the goal-page intro paragraph and metadata (label, icon, order).
+
+- Tech stack
+    - Astro static site generator.
+    - Content collections for the service Markdown files.
+    - View Transitions API for the fade.
+    - Plain CSS, no Tailwind required for v1. A small set of design tokens (colors, spacing, type scale) lives in src/styles/.
+    - Deployment target: any static host (Netlify, Cloudflare Pages, Vercel). Final choice deferred.
+
+- Out of scope for v1
+    - Search.
+    - French translation and language toggle.
+    - Consultation booking form. The CTA links to a contact page that is a placeholder for now.
+    - Analytics, A/B testing, and lead capture forms.
+    - CMS integration. Content is edited via Git and Markdown.
+
+- Risks and open questions
+    - Citizenship placement: under /immigrate or its own goal. To be decided when authoring /immigrate content.
+    - Goal labels and icons need final wording. Mockup labels are placeholders.
+    - 9 tiles on a 2-column mobile grid leaves an odd row. Current plan: Appeals spans both columns. Verify this still feels balanced when actual icons are placed.
+    - Related-programs block needs a sensible default when a service has no siblings within its category. Plan: omit the block entirely in that case.
+
+- Acceptance criteria for the structural milestone
+    - User on a phone can land on the homepage and reach any service detail page in 2 taps.
+    - Detail pages load fast (target Lighthouse mobile performance score above 90).
+    - All content is authored in Markdown without any code edits.
+    - Back link on every detail page returns the user to the relevant goal page section.
