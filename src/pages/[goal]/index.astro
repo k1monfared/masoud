@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BackLink from '../../components/BackLink.astro';
 import ProgramListItem from '../../components/ProgramListItem.astro';
+import { path } from '../../lib/path';
 
 export async function getStaticPaths() {
   const goals = await getCollection('goals');
@@ -26,7 +27,7 @@ const categories = Array.from(grouped.entries());
 const { Content } = await goalEntry.render();
 ---
 <BaseLayout title={goalEntry.data.title}>
-  <BackLink href="/" label="Home" />
+  <BackLink href={path('/')} label="Home" />
   <h1>{goalEntry.data.title}</h1>
   {goalEntry.data.intro && <p class="intro">{goalEntry.data.intro}</p>}
   <div class="goalbody"><Content /></div>
@@ -37,7 +38,7 @@ const { Content } = await goalEntry.render();
       {items.map(p => (
         <ProgramListItem
           title={p.data.title}
-          href={`/${goalEntry.slug}/${p.slug}`}
+          href={path(`/${goalEntry.slug}/${p.slug}`)}
           summary={p.data.summary}
         />
       ))}

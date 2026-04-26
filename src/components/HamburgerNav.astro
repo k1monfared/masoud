@@ -1,13 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import { bookingHref } from '../data/site';
+import { path } from '../lib/path';
 import Icon from './Icon.astro';
 
 const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
 ---
 <header class="topnav">
   <div class="container topnav__inner">
-    <a class="topnav__brand" href="/" aria-label="Manzouri Immigration, home">
+    <a class="topnav__brand" href={path('/')} aria-label="Manzouri Immigration, home">
       <span class="topnav__brand-mark">Manzouri</span>
       <span class="topnav__brand-sub">Immigration</span>
     </a>
@@ -17,16 +18,16 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
         <summary class="topnav__link">Services</summary>
         <div class="topnav__menu">
           {goals.map(g => (
-            <a class="topnav__menulink" href={`/${g.slug}`}>
+            <a class="topnav__menulink" href={path(`/${g.slug}`)}>
               <Icon name={g.data.icon} size={18} strokeWidth={1.5} class="topnav__menuicon" />
               <span>{g.data.title}</span>
             </a>
           ))}
         </div>
       </details>
-      <a class="topnav__link" href="/about">About</a>
-      <a class="topnav__link" href="/resources">Resources</a>
-      <a class="topnav__link" href="/contact">Contact</a>
+      <a class="topnav__link" href={path('/about')}>About</a>
+      <a class="topnav__link" href={path('/resources')}>Resources</a>
+      <a class="topnav__link" href={path('/contact')}>Contact</a>
       <a class="topnav__pill" href={bookingHref}>Book consultation</a>
     </nav>
 
@@ -39,14 +40,14 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
     <p class="drawer__heading">Services</p>
     <ul class="drawer__list">
       {goals.map(g => (
-        <li><a href={`/${g.slug}`}>{g.data.title}</a></li>
+        <li><a href={path(`/${g.slug}`)}>{g.data.title}</a></li>
       ))}
     </ul>
     <p class="drawer__heading">More</p>
     <ul class="drawer__list">
-      <li><a href="/about">About</a></li>
-      <li><a href="/resources">Resources</a></li>
-      <li><a href="/contact">Contact</a></li>
+      <li><a href={path('/about')}>About</a></li>
+      <li><a href={path('/resources')}>Resources</a></li>
+      <li><a href={path('/contact')}>Contact</a></li>
     </ul>
     <div class="drawer__cta">
       <a class="topnav__pill topnav__pill--full" href={bookingHref}>Book consultation</a>

@@ -6,6 +6,7 @@ import RelatedPrograms from '../../components/RelatedPrograms.astro';
 import ConsultationCTA from '../../components/ConsultationCTA.astro';
 import FactBox from '../../components/FactBox.astro';
 import FAQAccordion from '../../components/FAQAccordion.astro';
+import { path } from '../../lib/path';
 
 export async function getStaticPaths() {
   const programs = await getCollection('programs');
@@ -25,14 +26,14 @@ const siblings = (await getCollection('programs', p =>
 
 const related = siblings.map(s => ({
   title: s.data.title,
-  href: `/${s.data.goal}/${s.slug}`,
+  href: path(`/${s.data.goal}/${s.slug}`),
 }));
 
 const { Content } = await program.render();
 ---
 <BaseLayout title={`${program.data.title} | ${goalEntry?.data.title ?? 'Immigration Services'}`}>
   <BackLink
-    href={`/${program.data.goal}#${program.data.category.replace(/\s+/g, '-').toLowerCase()}`}
+    href={`${path(`/${program.data.goal}`)}#${program.data.category.replace(/\s+/g, '-').toLowerCase()}`}
     label={`All ${program.data.category} programs`}
   />
   <h1>{program.data.title}</h1>

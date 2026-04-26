@@ -78,4 +78,6 @@ export const site: SiteConfig = {
   ],
 };
 
-export const bookingHref: string = site.calendarUrl || '/contact';
+import { path } from '../lib/path';
+
+export const bookingHref: string = site.calendarUrl || path('/contact');

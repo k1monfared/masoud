@@ -4,10 +4,11 @@ import BackLink from '../components/BackLink.astro';
 import ConsultationCTA from '../components/ConsultationCTA.astro';
 import Accreditations from '../components/Accreditations.astro';
 import { site } from '../data/site';
+import { path } from '../lib/path';
 ---
 {/* TODO(copy): rewrite the entire About narrative in your own voice. */}
 <BaseLayout title={`About ${site.practitionerName} | ${site.firmName}`}>
-  <BackLink href="/" label="Home" />
+  <BackLink href={path('/')} label="Home" />
 
   <section class="about__hero">
     <div class="about__photo" aria-hidden="true">

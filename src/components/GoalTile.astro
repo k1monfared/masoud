@@ -1,9 +1,10 @@
 ---
 import Icon from './Icon.astro';
+import { path } from '../lib/path';
 interface Props { title: string; slug: string; icon: string; }
 const { title, slug, icon } = Astro.props;
 ---
-<a class="goaltile" href={`/${slug}`}>
+<a class="goaltile" href={path(`/${slug}`)}>
   <span class="goaltile__icon" aria-hidden="true"><Icon name={icon} size={32} strokeWidth={1.4} /></span>
   <span class="goaltile__title">{title}</span>
   <span class="goaltile__more">Learn more</span>

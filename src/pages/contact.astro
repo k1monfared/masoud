@@ -3,10 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BackLink from '../components/BackLink.astro';
 import CalendarEmbed from '../components/CalendarEmbed.astro';
 import { site } from '../data/site';
+import { path } from '../lib/path';
 ---
 {/* TODO(copy): adjust pitch wording to your voice. */}
 <BaseLayout title={`Contact | ${site.firmName}`}>
-  <BackLink href="/" label="Home" />
+  <BackLink href={path('/')} label="Home" />
   <h1>Book a consultation</h1>
   <p class="lede">
     Free 30-minute first call. We talk through where you are, where you want to go, and the realistic paths in between. No commitment, no sales pitch.

@@ -1,7 +1,8 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://k1monfared.github.io',
+  base: '/masoud',
   build: { format: 'directory' },
   trailingSlash: 'never',
   vite: {

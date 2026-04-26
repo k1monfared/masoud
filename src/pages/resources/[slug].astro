@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BackLink from '../../components/BackLink.astro';
 import ConsultationCTA from '../../components/ConsultationCTA.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import { path } from '../../lib/path';
 
 export async function getStaticPaths() {
   const articles = await getCollection('resources');
@@ -21,7 +22,7 @@ const formatted = article.data.date.toLocaleDateString('en-CA', { year: 'numeric
 const { Content } = await article.render();
 ---
 <BaseLayout title={`${article.data.title} | Resources`}>
-  <BackLink href="/resources" label="All resources" />
+  <BackLink href={path('/resources')} label="All resources" />
   <article class="post">
     <div class="post__meta">
       <time datetime={article.data.date.toISOString()}>{formatted}</time>
@@ -41,7 +42,7 @@ const { Content } = await article.render();
         {others.map(a => (
           <ArticleCard
             title={a.data.title}
-            href={`/resources/${a.slug}`}
+            href={path(`/resources/${a.slug}`)}
             date={a.data.date}
             summary={a.data.summary}
             tag={a.data.tag}
