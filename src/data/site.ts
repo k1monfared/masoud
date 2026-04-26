@@ -43,7 +43,7 @@ export interface SiteConfig {
 
 export const site: SiteConfig = {
   firmName: 'MANZOURI Immigration',
-  practitionerName: 'Manzouri',
+  practitionerName: 'Masoud Manzouri',
   rcicLicense: 'R000000',
   founded: 2023,
   tagline: 'Trust your Canadian immigration journey to us.',
