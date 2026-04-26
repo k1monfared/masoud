@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BackLink from '../components/BackLink.astro';
 import ConsultationCTA from '../components/ConsultationCTA.astro';
-import Accreditations from '../components/Accreditations.astro';
+import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 import { path } from '../lib/path';
 ---
@@ -65,12 +65,21 @@ import { path } from '../lib/path';
       </section>
     </div>
 
-    <aside class="about__aside" aria-hidden="true">
+    <aside class="about__aside">
       <img class="about__photo" src={path('/images/practitioner.png')} alt={`${site.practitionerName}, ${site.firmName}`} loading="eager" />
+      <section class="about__credentials">
+        <p class="about__credentials-eyebrow">Credentials</p>
+        <ul>
+          {site.credentials.map(c => (
+            <li>
+              <Icon name="check" size={16} strokeWidth={2} class="about__credentials-check" />
+              <span>{c.url ? <a href={c.url} target="_blank" rel="noopener">{c.label}</a> : c.label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     </aside>
   </div>
-
-  <Accreditations />
 
   <ConsultationCTA />
 </BaseLayout>
@@ -97,7 +106,7 @@ import { path } from '../lib/path';
   }
   @media (min-width: 720px) {
     .about__layout {
-      grid-template-columns: minmax(0, 1fr) 340px;
+      grid-template-columns: minmax(0, 1fr) 320px;
       gap: var(--space-7);
       align-items: start;
     }
@@ -106,27 +115,65 @@ import { path } from '../lib/path';
   .about__aside {
     order: -1;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
   }
   @media (min-width: 720px) {
-    .about__aside {
-      order: 0;
-      position: sticky;
-      top: 96px;
-      align-self: start;
-    }
+    .about__aside { order: 0; align-items: stretch; }
   }
 
   .about__photo {
     width: 240px;
     height: auto;
     display: block;
+    margin: 0 auto;
     mask-image: linear-gradient(180deg, #000 0%, #000 90%, transparent 100%);
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 90%, transparent 100%);
   }
   @media (min-width: 720px) {
-    .about__photo { width: 340px; }
+    .about__photo { width: 100%; max-width: 320px; }
   }
+
+  .about__credentials {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  @media (min-width: 720px) {
+    .about__credentials { margin: 0; }
+  }
+  .about__credentials-eyebrow {
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin: 0 0 var(--space-3) 0;
+  }
+  .about__credentials ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .about__credentials li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+  .about__credentials-check {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .about__credentials a { color: var(--color-text); }
+  .about__credentials a:hover { color: var(--color-primary); text-decoration: underline; }
 
   .about__hero { margin: 0 0 var(--space-6) 0; }
   .about__role {
