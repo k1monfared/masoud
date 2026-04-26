@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 
 const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
 ---
-<header class="topnav">
+<header class="topnav" transition:persist>
   <div class="container topnav__inner">
     <a class="topnav__brand" href={path('/')} aria-label="Manzouri Immigration, home">
       <span class="topnav__brand-mark">Manzouri</span>
@@ -360,7 +360,17 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
       if (drawer) {
         var links = drawer.querySelectorAll('a');
         for (var i = 0; i < links.length; i++) {
-          links[i].onclick = function () { if (menuOpen) closeMenu(); };
+          links[i].onclick = function (e) {
+            if (!menuOpen) return;
+            var href = this.getAttribute('href');
+            // Only intercept internal links so external/external-protocol links navigate immediately.
+            var isInternal = href && (href.indexOf('http') !== 0 && href.indexOf('mailto:') !== 0 && href.indexOf('tel:') !== 0);
+            if (!isInternal) { closeMenu(); return; }
+            e.preventDefault();
+            closeMenu();
+            // Wait for drawer slide-out before navigation so the page swap feels smooth.
+            setTimeout(function () { window.location.href = href; }, 240);
+          };
         }
       }
 

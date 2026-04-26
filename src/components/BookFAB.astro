@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 import { bookingHref } from '../data/site';
 ---
-<a class="bookfab" href={bookingHref} aria-label="Book a free consultation">
+<a class="bookfab" href={bookingHref} aria-label="Book a free consultation" transition:persist>
   <span class="bookfab__icon" aria-hidden="true"><Icon name="calendar" size={22} strokeWidth={1.8} /></span>
   <span class="bookfab__label">Book a free consultation</span>
 </a>
@@ -10,8 +10,8 @@ import { bookingHref } from '../data/site';
 <style>
   .bookfab {
     position: fixed;
-    right: var(--space-4);
-    bottom: var(--space-4);
+    right: calc(var(--space-4) + env(safe-area-inset-right, 0px));
+    bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
     z-index: 80;
     background: var(--color-primary);
     color: var(--color-primary-contrast);
@@ -32,7 +32,10 @@ import { bookingHref } from '../data/site';
     transition: background 200ms ease, opacity 200ms ease;
   }
   @media (min-width: 720px) {
-    .bookfab { right: var(--space-6); bottom: var(--space-6); }
+    .bookfab {
+      right: calc(var(--space-6) + env(safe-area-inset-right, 0px));
+      bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+    }
   }
   .bookfab:hover { text-decoration: none; background: var(--color-primary-strong); }
   .bookfab:active { transform: scale(0.97); }
