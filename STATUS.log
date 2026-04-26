@@ -1,72 +1,60 @@
 - Project Status
-    - Last Updated: YYYY-MM-DD
-    - Development Mode: [Claude Code | Manual | Hybrid]
-    - Stage: Initial Setup
-    - Next Milestone: [Description of next goal]
+    - Last Updated: 2026-04-25
+    - Development Mode: Claude Code
+    - Stage: MVP
+    - Next Milestone: Author full content for the remaining goals and ship to staging.
 
 - Development Stages
     - [x] Initial Setup
-        - Created: YYYY-MM-DD
+        - Created: 2026-04-25
         - Repository initialized
-        - Basic structure in place
-        - Template copied from claude_code_project_template
-    - [] Proof of Concept (POC)
-        - Target: YYYY-MM-DD
-        - Goal: Validate core concept and technology choices
-        - Success criteria:
-            - [] Key feature X works
-            - [] Technology stack validated
-            - [] Basic end-to-end flow demonstrated
-    - [] Minimum Viable Product (MVP)
-        - Goal: First usable version with core features
+        - CLAUDE.md and STATUS.log in place
+    - [x] Proof of Concept (POC)
+        - Completed: 2026-04-25
+        - Validated: Astro static site, content collections, mobile-first layout, view transitions
+    - [x] Minimum Viable Product (MVP)
+        - Completed: 2026-04-25
         - Core features:
-            - [] Feature A
-            - [] Feature B
-            - [] Feature C
-        - Known issues:
-            - [List bugs that block demo/production]
+            - [x] Goal-first homepage with 9 tiles
+            - [x] Goal page with grouped list per category
+            - [x] Detail page with back link, body, related programs, single CTA
+            - [x] 200ms view transition fade
+            - [x] Hamburger drawer site menu
+            - [x] End-to-end test: two-tap navigation
     - [] Beta Release
-        - Goal: Feature-complete but needs polish
-        - Missing features:
-            - [] Feature X
-            - [] Feature Y
-            - [] Feature Z
-        - Active users: N/A
-        - Stability: [Assessment]
+        - Goal: Author complete content for all 9 goals, polish visual design, add a real contact form.
     - [] Production Ready
-        - Goal: Stable, documented, tested
-        - Deployment status: [Not deployed | Staging | Production]
-        - Documentation: [Complete | In Progress | Needed]
-        - Tests: [Coverage percentage or status]
     - [] Maintenance Mode
-        - Core complete and stable
-        - Nice-to-haves queued:
-            - Enhancement A
-            - Enhancement B
-            - Enhancement C
 
 - Technical Details
     - Tech Stack:
-        - [List technologies, languages, frameworks]
+        - Astro 4.x
+        - TypeScript
+        - Vanilla CSS with custom property tokens
+        - Playwright for end-to-end tests
     - Key Files:
-        - [Important files and their purposes]
+        - docs/superpowers/specs/2026-04-25-website-structure-design.log
+        - docs/superpowers/plans/2026-04-25-website-structure.md
+        - src/content/config.ts
+        - src/layouts/BaseLayout.astro
     - Architecture Notes:
-        - [Key design decisions]
-        - [Patterns used]
-        - [Dependencies]
+        - Mobile first, English only for v1
+        - Markdown-driven content collections
+        - Each program has a goal and category, used for routing and grouping
+        - View Transitions API for the fade between pages
+        - Astro reserves the slug field name in content schemas, so slugs are derived from filenames
 
 - Current Focus
     - Active Tasks:
-        - [] Task 1
-        - [] Task 2
+        - [] Author remaining program content
+        - [] Visual design polish
+        - [] Contact form implementation
     - Blockers:
-        - [Any blocking issues]
+        - None
     - Recent Progress:
-        - YYYY-MM-DD: [What was accomplished]
-        - YYYY-MM-DD: [What was accomplished]
+        - 2026-04-25: Built site structure: homepage, goal pages, detail pages, view transitions, e2e test
 
 - Notes
-    - Use loglog format for all documentation
-    - Update "Last Updated" date when making changes
+    - Use loglog format for documentation
     - Run /home/k1/public/update_project_status.sh after updates
     - Convert to markdown: loglog STATUS.log > STATUS.md
