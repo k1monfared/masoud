@@ -8,7 +8,7 @@ import { path } from '../lib/path';
 {/* TODO(copy): adjust pitch wording to your voice. */}
 <BaseLayout title={`Contact | ${site.firmName}`}>
   <BackLink href={path('/')} label="Home" />
-  <h1>Book a consultation</h1>
+  <h1>Book a free consultation</h1>
   <p class="lede">
     Free 30-minute first call. We talk through where you are, where you want to go, and the realistic paths in between. No commitment, no sales pitch.
   </p>
@@ -25,12 +25,6 @@ import { path } from '../lib/path';
       <div class="other__card">
         <h3>Email</h3>
         <p><a href={site.emailHref}>{site.email}</a></p>
-      </div>
-      <div class="other__card">
-        <h3>Hours</h3>
-        <ul>
-          {site.hours.map(h => <li><strong>{h.day}.</strong> {h.hours}</li>)}
-        </ul>
       </div>
       <div class="other__card">
         <h3>Languages</h3>
