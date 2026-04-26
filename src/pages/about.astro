@@ -13,22 +13,25 @@ import { path } from '../lib/path';
   <div class="about__layout">
     <div class="about__main">
       <header class="about__hero">
+        <p class="about__kicker">About</p>
         <h1>{site.practitionerName}</h1>
         <p class="about__role">Regulated Canadian Immigration Consultant</p>
-        <dl class="about__meta">
+        <dl class="about__stats">
           <div><dt>License</dt><dd>RCIC #{site.rcicLicense}</dd></div>
           <div><dt>Founded</dt><dd>{site.founded}</dd></div>
-          <div><dt>Experience working with immigrants</dt><dd>{site.yearsExperience}+ years</dd></div>
+          <div><dt>Working with immigrants</dt><dd>{site.yearsExperience}+ <span>years</span></dd></div>
           <div><dt>Clients guided</dt><dd>{site.clientsServed}+</dd></div>
         </dl>
       </header>
 
       <section class="about__section">
-        <h2>Trusted Canadian immigration consulting firm</h2>
+        <p class="about__numlabel"><span>01</span> The firm</p>
+        <h2>Trusted Canadian immigration consulting</h2>
         <p class="about__lead">{site.aboutBlurb}</p>
       </section>
 
       <section class="about__section">
+        <p class="about__numlabel"><span>02</span> Background</p>
         <h2>My story</h2>
         <p>
           I came to this work through my own family's move to Canada. The forms looked like a wall. The terminology felt invented to keep people out. I learned the system because I needed to, then realized other families needed the same map I'd had to build by hand.
@@ -42,17 +45,21 @@ import { path } from '../lib/path';
       </section>
 
       <section class="about__section">
+        <p class="about__numlabel"><span>03</span> Approach</p>
         <h2>Why work with me</h2>
         <div class="about__principles">
           <article class="principle">
+            <span class="principle__index">01</span>
             <h3>Free first call</h3>
             <p>Thirty minutes, no obligation. We figure out where you stand and which paths fit, and you decide whether to keep working with me.</p>
           </article>
           <article class="principle">
+            <span class="principle__index">02</span>
             <h3>Transparent fees</h3>
             <p>Flat fees agreed in writing before any work begins. No surprises, no hourly clock running while you ask questions.</p>
           </article>
           <article class="principle">
+            <span class="principle__index">03</span>
             <h3>Plain English</h3>
             <p>I explain the rules and your options without jargon. You leave each meeting knowing what just happened and what comes next.</p>
           </article>
@@ -60,13 +67,17 @@ import { path } from '../lib/path';
       </section>
 
       <section class="about__section">
-        <h2>Languages I work in</h2>
-        <p>{site.languages.join(', ')}. I use the language you think in, not the one the form is printed in.</p>
+        <p class="about__numlabel"><span>04</span> Languages</p>
+        <h2>I work in {site.languages.join(', ')}</h2>
+        <p>I use the language you think in, not the one the form is printed in.</p>
       </section>
     </div>
 
     <aside class="about__aside">
-      <img class="about__photo" src={path('/images/practitioner.png')} alt={`${site.practitionerName}, ${site.firmName}`} loading="eager" />
+      <div class="about__photo-wrap">
+        <span class="about__photo-shape" aria-hidden="true"></span>
+        <img class="about__photo" src={path('/images/practitioner.png')} alt={`${site.practitionerName}, ${site.firmName}`} loading="eager" />
+      </div>
       <section class="about__credentials">
         <p class="about__credentials-eyebrow">Credentials</p>
         <ul>
@@ -86,23 +97,27 @@ import { path } from '../lib/path';
 
 <style>
   h1 {
-    font-size: 2rem;
+    font-size: clamp(2.4rem, 6vw, 4rem);
     color: var(--color-text);
-    margin: 0 0 var(--space-1) 0;
-    font-weight: 700;
+    margin: 0 0 var(--space-2) 0;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
     color: var(--color-text);
     margin: 0 0 var(--space-3) 0;
     font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 
   .about__layout {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-5);
-    margin: var(--space-4) 0 var(--space-6);
+    margin: var(--space-4) 0 var(--space-7);
   }
   @media (min-width: 720px) {
     .about__layout {
@@ -123,7 +138,29 @@ import { path } from '../lib/path';
     .about__aside { order: 0; align-items: stretch; }
   }
 
+  .about__photo-wrap {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  @media (min-width: 720px) {
+    .about__photo-wrap { display: block; margin: 0; }
+  }
+
+  .about__photo-shape {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: -16px;
+    bottom: 8px;
+    background: var(--color-accent);
+    z-index: 0;
+    opacity: 0.92;
+  }
+
   .about__photo {
+    position: relative;
+    z-index: 1;
     width: 240px;
     height: auto;
     display: block;
@@ -132,7 +169,7 @@ import { path } from '../lib/path';
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 90%, transparent 100%);
   }
   @media (min-width: 720px) {
-    .about__photo { width: 100%; max-width: 320px; }
+    .about__photo { width: 100%; max-width: 320px; margin: 0; }
   }
 
   .about__credentials {
@@ -167,46 +204,88 @@ import { path } from '../lib/path';
     line-height: 1.5;
     color: var(--color-text);
   }
-  .about__credentials-check {
-    color: var(--color-primary);
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
+  .about__credentials-check { color: var(--color-primary); flex-shrink: 0; margin-top: 3px; }
   .about__credentials a { color: var(--color-text); }
   .about__credentials a:hover { color: var(--color-primary); text-decoration: underline; }
 
-  .about__hero { margin: 0 0 var(--space-6) 0; }
-  .about__role {
-    margin: var(--space-2) 0 var(--space-4) 0;
-    color: var(--color-text-muted);
-    font-size: 1.1rem;
+  .about__hero { margin: 0 0 var(--space-7) 0; }
+  .about__kicker {
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-weight: 700;
+    margin: 0 0 var(--space-3) 0;
   }
-  .about__meta {
+  .about__role {
+    margin: var(--space-2) 0 var(--space-5) 0;
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+  }
+  .about__stats {
     margin: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-3) var(--space-5);
-    max-width: 480px;
+    gap: var(--space-4) var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface);
+    max-width: 560px;
   }
-  .about__meta > div { margin: 0; }
-  .about__meta dt {
-    font-size: 0.72rem;
+  @media (min-width: 720px) {
+    .about__stats { grid-template-columns: repeat(4, 1fr); }
+  }
+  .about__stats > div { margin: 0; }
+  .about__stats dt {
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     color: var(--color-text-muted);
-    margin: 0 0 2px 0;
-    font-weight: 600;
+    margin: 0 0 var(--space-1) 0;
+    font-weight: 700;
   }
-  .about__meta dd {
+  .about__stats dd {
     margin: 0;
     color: var(--color-text);
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .about__stats dd span {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-left: 4px;
   }
 
-  .about__section { margin: var(--space-6) 0; }
+  .about__section { margin: var(--space-7) 0; }
   .about__section p { line-height: 1.7; margin: var(--space-3) 0; }
-  .about__lead { font-size: 1.05rem; color: var(--color-text-muted); }
+  .about__lead { font-size: 1.1rem; color: var(--color-text); }
+
+  .about__numlabel {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    margin: 0 0 var(--space-3) 0;
+  }
+  .about__numlabel span {
+    font-family: var(--font-brand);
+    font-weight: 900;
+    letter-spacing: 0;
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+  .about__numlabel::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
 
   .about__principles {
     display: grid;
@@ -218,11 +297,20 @@ import { path } from '../lib/path';
   }
   .principle {
     background: var(--color-surface);
-    padding: var(--space-4);
+    padding: var(--space-5) var(--space-4) var(--space-4);
+    position: relative;
+  }
+  .principle__index {
+    color: var(--color-primary);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    margin-bottom: var(--space-2);
+    display: block;
   }
   .principle h3 {
-    font-size: var(--font-size-base);
-    color: var(--color-primary);
+    font-size: 1.05rem;
+    color: var(--color-text);
     margin: 0 0 var(--space-2) 0;
     font-weight: 700;
   }
