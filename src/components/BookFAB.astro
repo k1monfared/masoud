@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 import { bookingHref } from '../data/site';
 ---
-<a class="bookfab" href={bookingHref} aria-label="Book a free consultation" transition:persist>
+<a class="bookfab" href={bookingHref} aria-label="Book a free consultation" data-astro-reload>
   <span class="bookfab__icon" aria-hidden="true"><Icon name="calendar" size={22} strokeWidth={1.8} /></span>
   <span class="bookfab__label">Book a free consultation</span>
 </a>
