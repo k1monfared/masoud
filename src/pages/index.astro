@@ -1,15 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/HomeHero.astro';
+import AboutBlurb from '../components/AboutBlurb.astro';
 import GoalGrid from '../components/GoalGrid.astro';
-import TrustPillars from '../components/TrustPillars.astro';
-import CTAStrip from '../components/CTAStrip.astro';
+import Accreditations from '../components/Accreditations.astro';
+import { site } from '../data/site';
 ---
-<BaseLayout title="Immigration Services">
+<BaseLayout title={site.firmName}>
   <HomeHero />
+  <AboutBlurb />
   <div id="services">
     <GoalGrid />
   </div>
-  <TrustPillars />
-  <CTAStrip />
+  <Accreditations />
 </BaseLayout>

@@ -1,0 +1,77 @@
+---
+import { site } from '../data/site';
+---
+<section class="accred">
+  <div class="accred__inner">
+    <p class="accred__eyebrow">Accreditations and memberships</p>
+    <h2 class="accred__heading">Credentials you can verify</h2>
+    <ul class="accred__list">
+      {site.credentials.map(c => (
+        <li>
+          {c.url ? <a href={c.url} target="_blank" rel="noopener">{c.label}</a> : c.label}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .accred {
+    margin: var(--space-7) calc(var(--space-4) * -1) 0;
+    padding: var(--space-7) var(--space-4);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+  }
+  .accred__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .accred__eyebrow {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin: 0 0 var(--space-2) 0;
+  }
+  .accred__heading {
+    font-size: 1.75rem;
+    color: var(--color-text);
+    margin: 0 0 var(--space-5) 0;
+    font-weight: 600;
+  }
+  .accred__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    text-align: left;
+  }
+  .accred__list li {
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+  .accred__list li::before {
+    content: "✓ ";
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-right: var(--space-1);
+  }
+  .accred__list a {
+    color: var(--color-text);
+  }
+  .accred__list a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  @media (min-width: 720px) {
+    .accred__heading { font-size: 2rem; }
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+---
+<section class="blurb">
+  <div class="blurb__inner">
+    <p class="blurb__eyebrow">About the firm</p>
+    <h2 class="blurb__heading">Trusted Canadian immigration and citizenship consulting firm</h2>
+    <p class="blurb__body">{site.aboutBlurb}</p>
+    <a class="blurb__link" href="/about">Read more about me →</a>
+  </div>
+</section>
+
+<style>
+  .blurb { margin: var(--space-7) 0; }
+  .blurb__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .blurb__eyebrow {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin: 0 0 var(--space-2) 0;
+  }
+  .blurb__heading {
+    font-size: 1.85rem;
+    color: var(--color-text);
+    margin: 0 0 var(--space-4) 0;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .blurb__body {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0 0 var(--space-4) 0;
+    font-size: 1.05rem;
+  }
+  .blurb__link {
+    color: var(--color-primary);
+    font-weight: 600;
+    border-bottom: 1px dashed var(--color-primary);
+    padding-bottom: 2px;
+  }
+  .blurb__link:hover { text-decoration: none; }
+  @media (min-width: 720px) {
+    .blurb__heading { font-size: 2.1rem; }
+  }
+</style>
