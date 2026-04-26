@@ -1,17 +1,106 @@
 ---
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+
+const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
+const year = new Date().getFullYear();
 ---
 <footer class="sitefoot">
-  <div class="container">
-    <p>Immigration Services Inc. Information here is general and not legal advice.</p>
+  <div class="container sitefoot__inner">
+    <section class="sitefoot__col sitefoot__col--brand">
+      <h3 class="sitefoot__title">{site.firmName}</h3>
+      <p class="sitefoot__line">{site.practitionerName}, RCIC #{site.rcicLicense}</p>
+      <p class="sitefoot__line sitefoot__address">{site.address}</p>
+      <ul class="sitefoot__list">
+        {site.hours.map(h => (
+          <li><span class="sitefoot__hday">{h.day}</span> {h.hours}</li>
+        ))}
+      </ul>
+    </section>
+
+    <nav class="sitefoot__col" aria-label="Sitemap">
+      <h3 class="sitefoot__title">Services</h3>
+      <ul class="sitefoot__list">
+        {goals.map(g => (
+          <li><a href={`/${g.slug}`}>{g.data.title}</a></li>
+        ))}
+      </ul>
+      <h3 class="sitefoot__title sitefoot__title--mt">More</h3>
+      <ul class="sitefoot__list">
+        <li><a href="/about">About</a></li>
+        <li><a href="/resources">Resources</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section class="sitefoot__col">
+      <h3 class="sitefoot__title">Get in touch</h3>
+      <ul class="sitefoot__list">
+        <li><a href={site.phoneHref}>{site.phone}</a></li>
+        <li><a href={site.emailHref}>{site.email}</a></li>
+      </ul>
+      <p class="sitefoot__line">Languages: {site.languages.join(', ')}</p>
+      {(site.social.linkedin || site.social.facebook || site.social.instagram) && (
+        <ul class="sitefoot__list sitefoot__social">
+          {site.social.linkedin && <li><a href={site.social.linkedin}>LinkedIn</a></li>}
+          {site.social.facebook && <li><a href={site.social.facebook}>Facebook</a></li>}
+          {site.social.instagram && <li><a href={site.social.instagram}>Instagram</a></li>}
+        </ul>
+      )}
+    </section>
+  </div>
+
+  <div class="container sitefoot__strip">
+    <p>&copy; {year} {site.firmName}. Information here is general and not legal advice. Individual case assessments require a consultation.</p>
   </div>
 </footer>
 
 <style>
   .sitefoot {
     background: var(--color-surface);
-    color: var(--color-text-muted);
-    padding: var(--space-5) 0;
+    color: var(--color-text);
     margin-top: var(--space-7);
     font-size: var(--font-size-sm);
+    border-top: 1px solid var(--color-border);
   }
+  .sitefoot__inner {
+    padding: var(--space-6) var(--space-4);
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .sitefoot__inner { grid-template-columns: 1.2fr 1fr 1fr; gap: var(--space-6); }
+  }
+  .sitefoot__title {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+  .sitefoot__title--mt { margin-top: var(--space-4); }
+  .sitefoot__line {
+    margin: 0 0 var(--space-2) 0;
+    color: var(--color-text-muted);
+  }
+  .sitefoot__address { white-space: pre-line; }
+  .sitefoot__list { list-style: none; margin: 0; padding: 0; }
+  .sitefoot__list li {
+    padding: 2px 0;
+    color: var(--color-text-muted);
+  }
+  .sitefoot__list a {
+    color: var(--color-primary);
+  }
+  .sitefoot__hday { color: var(--color-text); font-weight: 600; }
+  .sitefoot__social { display: flex; gap: var(--space-3); margin-top: var(--space-2); }
+  .sitefoot__social li { padding: 0; }
+  .sitefoot__strip {
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+  }
+  .sitefoot__strip p { margin: 0; }
 </style>
