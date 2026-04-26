@@ -46,7 +46,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
       </button>
     </div>
 
-    <details class="drawer__group">
+    <details class="drawer__group" open>
       <summary class="drawer__summary">
         <span>Services</span>
         <Icon name="chevron-down" size={18} strokeWidth={2} class="drawer__chev" />
