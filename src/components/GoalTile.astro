@@ -1,11 +1,12 @@
 ---
+import Icon from './Icon.astro';
 interface Props { title: string; slug: string; icon: string; }
 const { title, slug, icon } = Astro.props;
 ---
 <a class="goaltile" href={`/${slug}`}>
-  <span class="goaltile__icon" aria-hidden="true">{icon}</span>
+  <span class="goaltile__icon" aria-hidden="true"><Icon name={icon} size={32} strokeWidth={1.4} /></span>
   <span class="goaltile__title">{title}</span>
-  <span class="goaltile__more">Learn more →</span>
+  <span class="goaltile__more">Learn more</span>
 </a>
 
 <style>
@@ -25,20 +26,23 @@ const { title, slug, icon } = Astro.props;
     background: var(--color-surface-2);
   }
   .goaltile__icon {
-    font-size: 32px;
+    color: var(--color-primary);
     line-height: 1;
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-2);
+    display: inline-flex;
   }
   .goaltile__title {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--color-text);
+    font-size: 1rem;
+    letter-spacing: 0.01em;
   }
   .goaltile__more {
     color: var(--color-primary);
     font-size: var(--font-size-sm);
     font-weight: 600;
     margin-top: var(--space-1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 </style>

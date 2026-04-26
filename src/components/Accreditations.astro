@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import { site } from '../data/site';
 ---
 <section class="accred">
@@ -7,8 +8,9 @@ import { site } from '../data/site';
     <h2 class="accred__heading">Credentials you can verify</h2>
     <ul class="accred__list">
       {site.credentials.map(c => (
-        <li>
-          {c.url ? <a href={c.url} target="_blank" rel="noopener">{c.label}</a> : c.label}
+        <li class="accred__item">
+          <Icon name="check" size={18} strokeWidth={2} class="accred__check" />
+          <span>{c.url ? <a href={c.url} target="_blank" rel="noopener">{c.label}</a> : c.label}</span>
         </li>
       ))}
     </ul>
@@ -31,14 +33,14 @@ import { site } from '../data/site';
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0 0 var(--space-2) 0;
   }
   .accred__heading {
     font-size: 1.75rem;
     color: var(--color-text);
     margin: 0 0 var(--space-5) 0;
-    font-weight: 600;
+    font-weight: 700;
   }
   .accred__list {
     list-style: none;
@@ -49,17 +51,19 @@ import { site } from '../data/site';
     gap: var(--space-2);
     text-align: left;
   }
-  .accred__list li {
+  .accred__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
     padding: var(--space-3) var(--space-4);
     background: var(--color-bg);
     color: var(--color-text);
     line-height: 1.5;
   }
-  .accred__list li::before {
-    content: "✓ ";
+  .accred__check {
     color: var(--color-primary);
-    font-weight: 700;
-    margin-right: var(--space-1);
+    flex-shrink: 0;
+    margin-top: 3px;
   }
   .accred__list a {
     color: var(--color-text);

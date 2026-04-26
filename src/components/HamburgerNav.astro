@@ -1,12 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import { bookingHref } from '../data/site';
+import Icon from './Icon.astro';
 
 const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
 ---
 <header class="topnav">
   <div class="container topnav__inner">
-    <a class="topnav__brand" href="/"><strong>Manzouri</strong> Immigration</a>
+    <a class="topnav__brand" href="/" aria-label="Manzouri Immigration, home">
+      <span class="topnav__brand-mark">Manzouri</span>
+      <span class="topnav__brand-sub">Immigration</span>
+    </a>
 
     <nav class="topnav__desktop" aria-label="Primary">
       <details class="topnav__dd">
@@ -14,7 +18,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
         <div class="topnav__menu">
           {goals.map(g => (
             <a class="topnav__menulink" href={`/${g.slug}`}>
-              <span aria-hidden="true">{g.data.icon}</span>
+              <Icon name={g.data.icon} size={18} strokeWidth={1.5} class="topnav__menuicon" />
               <span>{g.data.title}</span>
             </a>
           ))}
@@ -62,18 +66,34 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   .topnav.is-scrolled {
     box-shadow: 0 4px 14px rgba(44, 58, 78, 0.08);
   }
-  .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 64px; }
+  .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 80px; padding: var(--space-3) 0; }
   .topnav__brand {
     color: inherit;
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 2px;
+  }
+  .topnav__brand:hover { text-decoration: none; }
+  .topnav__brand-mark {
     font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 900;
+    font-size: 1.6rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
+    color: var(--color-text);
   }
-  .topnav__brand strong {
-    font-weight: 900;
-    letter-spacing: 0.22em;
+  .topnav__brand-sub {
+    font-family: var(--font-brand);
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding-left: 2px;
+  }
+  @media (min-width: 720px) {
+    .topnav__brand-mark { font-size: 1.85rem; }
   }
 
   .topnav__desktop { display: none; }
@@ -123,13 +143,14 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   }
   .topnav__menulink {
     display: flex;
-    gap: var(--space-2);
+    gap: var(--space-3);
     align-items: center;
     color: var(--color-text);
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius);
     font-size: 0.95rem;
   }
+  .topnav__menuicon { color: var(--color-primary); flex-shrink: 0; }
   .topnav__menulink:hover { background: var(--color-bg); text-decoration: none; }
 
   .topnav__ham {
