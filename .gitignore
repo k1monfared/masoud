@@ -6,7 +6,8 @@ dist/
 test-results/
 playwright-report/
 .playwright-mcp/
-*.png
+# Block screenshots in repo root (e.g., visual debug shots) but keep public/ assets
+/*.png
 
 # Claude Code
 .claude/cache/
