@@ -1,9 +1,83 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BackLink from '../components/BackLink.astro';
+import CalendarEmbed from '../components/CalendarEmbed.astro';
+import { site } from '../data/site';
 ---
-<BaseLayout title="Contact">
+{/* TODO(copy): adjust pitch wording to your voice. */}
+<BaseLayout title={`Contact | ${site.firmName}`}>
   <BackLink href="/" label="Home" />
-  <h1>Contact</h1>
-  <p>The consultation booking form lives here. Spec defers implementation to a later milestone.</p>
+  <h1>Book a consultation</h1>
+  <p class="lede">
+    Free 30-minute first call. We talk through where you are, where you want to go, and the realistic paths in between. No commitment, no sales pitch.
+  </p>
+
+  <CalendarEmbed url={site.calendarUrl} />
+
+  <section class="other">
+    <h2>Other ways to reach me</h2>
+    <div class="other__grid">
+      <div class="other__card">
+        <h3>Phone</h3>
+        <p><a href={site.phoneHref}>{site.phone}</a></p>
+      </div>
+      <div class="other__card">
+        <h3>Email</h3>
+        <p><a href={site.emailHref}>{site.email}</a></p>
+      </div>
+      <div class="other__card">
+        <h3>Hours</h3>
+        <ul>
+          {site.hours.map(h => <li><strong>{h.day}.</strong> {h.hours}</li>)}
+        </ul>
+      </div>
+      <div class="other__card">
+        <h3>Languages</h3>
+        <p>{site.languages.join(', ')}</p>
+      </div>
+      <div class="other__card other__card--wide">
+        <h3>Office</h3>
+        <p class="other__address">{site.address}</p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  h1 { font-size: var(--font-size-2xl); color: var(--color-primary); margin: 0 0 var(--space-2) 0; }
+  h2 { font-size: var(--font-size-lg); color: var(--color-primary); margin: 0 0 var(--space-3) 0; }
+  .lede {
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-4) 0;
+    max-width: 50ch;
+    line-height: 1.6;
+  }
+  .other { margin-top: var(--space-6); }
+  .other__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  @media (min-width: 720px) {
+    .other__grid { grid-template-columns: 1fr 1fr; }
+    .other__card--wide { grid-column: 1 / -1; }
+  }
+  .other__card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+  }
+  .other__card h3 {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+  .other__card p { margin: 0; color: var(--color-text); }
+  .other__card a { color: var(--color-primary); font-weight: 600; }
+  .other__card ul { list-style: none; padding: 0; margin: 0; color: var(--color-text); }
+  .other__card li { margin: 2px 0; font-size: var(--font-size-sm); }
+  .other__address { white-space: pre-line; }
+</style>
