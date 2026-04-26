@@ -3,7 +3,8 @@ import Icon from './Icon.astro';
 import { path } from '../lib/path';
 interface Props { title: string; slug: string; icon: string; image?: string; }
 const { title, slug, icon, image } = Astro.props;
-const styleAttr = image ? `--tile-image: url('${image}')` : undefined;
+const resolvedImage = image ? path(image) : undefined;
+const styleAttr = resolvedImage ? `--tile-image: url('${resolvedImage}')` : undefined;
 ---
 <a class={`goaltile${image ? ' goaltile--photo' : ''}`} href={path(`/${slug}`)} style={styleAttr}>
   <div class="goaltile__card">
