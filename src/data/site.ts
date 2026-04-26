@@ -55,7 +55,7 @@ export const site: SiteConfig = {
   phoneHref: 'tel:+17780000000',
   email: 'info@example.ca',
   emailHref: 'mailto:info@example.ca',
-  address: 'Victoria, British Columbia\nCanada',
+  address: 'Victoria, British Columbia, Canada',
   hours: [
     { day: 'Monday to Friday', hours: '9:00 to 17:00' },
     { day: 'Saturday', hours: 'By appointment' },
