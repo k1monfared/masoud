@@ -1,9 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = '/masoud';
-
 test('homepage to detail page in two taps', async ({ page }) => {
-  await page.goto(BASE);
+  await page.goto('/');
   await expect(page.getByRole('heading', { name: /Canada Immigration Services/ })).toBeVisible();
 
   // tap 1: choose goal (scope to the goal grid, not footer/nav links)
@@ -22,7 +20,7 @@ test('homepage to detail page in two taps', async ({ page }) => {
 });
 
 test('every homepage tile leads somewhere', async ({ page }) => {
-  await page.goto(BASE);
+  await page.goto('/');
   const tiles = page.locator('.goaltile');
   const count = await tiles.count();
   expect(count).toBeGreaterThanOrEqual(9);
