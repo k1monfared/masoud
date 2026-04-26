@@ -66,3 +66,27 @@ import { bookingHref } from '../data/site';
     }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    function bind() {
+      var fab = document.querySelector('.bookfab');
+      if (!fab) return;
+      // Mark as bound so we do not stack listeners across page-loads
+      if (fab.dataset.bound === '1') return;
+      fab.dataset.bound = '1';
+      fab.addEventListener('click', function (e) {
+        var href = fab.getAttribute('href');
+        if (!href) return;
+        // Force a full navigation. Some browsers (Firefox) drop the default
+        // navigation when the click target is inside an animating fixed element.
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.assign(href);
+      });
+    }
+    document.addEventListener('astro:page-load', bind);
+    if (document.readyState !== 'loading') bind();
+    else document.addEventListener('DOMContentLoaded', bind);
+  })();
+</script>
