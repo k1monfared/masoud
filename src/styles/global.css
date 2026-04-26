@@ -6,10 +6,16 @@ body {
   font-size: var(--font-size-base);
   color: var(--color-text);
   background: var(--color-bg);
-  line-height: 1.5;
+  line-height: 1.6;
+}
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 a { color: var(--color-primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
 img { max-width: 100%; height: auto; display: block; }
 button { font: inherit; cursor: pointer; }
 
@@ -17,4 +23,7 @@ button { font: inherit; cursor: pointer; }
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--space-4);
+}
+.container--narrow {
+  max-width: var(--content-width);
 }

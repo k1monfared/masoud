@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 
 test('homepage to detail page in two taps', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'I want to...' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Canada Immigration Services/ })).toBeVisible();
 
   // tap 1: choose goal (scope to the goal grid, not footer/nav links)
-  await page.locator('#services').getByRole('link', { name: 'Immigrate to Canada' }).click();
+  await page.locator('#services').getByRole('link', { name: /Immigrate to Canada/ }).click();
   await expect(page.getByRole('heading', { name: 'Immigrate to Canada' })).toBeVisible();
 
   // tap 2: choose program (scope to main, avoids related-programs / footer matches)

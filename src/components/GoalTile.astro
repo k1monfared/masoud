@@ -5,22 +5,44 @@ const { title, slug, icon } = Astro.props;
 <a class="goaltile" href={`/${slug}`}>
   <span class="goaltile__icon" aria-hidden="true">{icon}</span>
   <span class="goaltile__title">{title}</span>
+  <span class="goaltile__more">Learn more →</span>
 </a>
 
 <style>
   .goaltile {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: var(--space-2);
-    background: var(--color-surface-2);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
-    color: var(--color-primary);
+    color: var(--color-text);
     text-decoration: none;
     text-align: center;
-    padding: var(--space-4) var(--space-2);
-    min-height: 96px;
-    font-weight: 600;
+    padding: var(--space-5) var(--space-3);
+    min-height: 140px;
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   }
-  .goaltile__icon { font-size: 28px; }
-  .goaltile__title { font-size: var(--font-size-base); }
+  .goaltile:hover {
+    text-decoration: none;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(44, 58, 78, 0.08);
+  }
+  .goaltile__icon {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: var(--space-1);
+  }
+  .goaltile__title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .goaltile__more {
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-top: var(--space-1);
+  }
 </style>
