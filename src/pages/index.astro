@@ -1,7 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/HomeHero.astro';
 import GoalGrid from '../components/GoalGrid.astro';
+import TrustPillars from '../components/TrustPillars.astro';
+import CTAStrip from '../components/CTAStrip.astro';
 ---
 <BaseLayout title="Immigration Services">
-  <GoalGrid />
+  <HomeHero />
+  <div id="services">
+    <GoalGrid />
+  </div>
+  <TrustPillars />
+  <CTAStrip />
 </BaseLayout>

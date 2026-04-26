@@ -1,0 +1,41 @@
+---
+import { bookingHref } from '../data/site';
+---
+{/* TODO(copy): tweak strip wording. */}
+<section class="ctastrip">
+  <div class="ctastrip__inner">
+    <h2 class="ctastrip__heading">Not sure where to start?</h2>
+    <p class="ctastrip__body">Book a free 30-minute call. We talk through where you are, where you want to go, and the realistic paths in between.</p>
+    <a class="ctastrip__btn" href={bookingHref}>Book free consultation</a>
+  </div>
+</section>
+
+<style>
+  .ctastrip {
+    margin: var(--space-7) calc(var(--space-4) * -1) 0;
+    padding: var(--space-6) var(--space-4);
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    text-align: center;
+  }
+  .ctastrip__heading {
+    font-size: var(--font-size-xl);
+    margin: 0 0 var(--space-2) 0;
+  }
+  .ctastrip__body {
+    margin: 0 auto var(--space-4);
+    max-width: 42ch;
+    opacity: 0.9;
+  }
+  .ctastrip__btn {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-primary-contrast);
+    color: var(--color-primary);
+    padding: var(--space-3) var(--space-5);
+    border-radius: 999px;
+    font-weight: 600;
+    min-height: var(--tap-target);
+  }
+  .ctastrip__btn:hover { text-decoration: none; opacity: 0.95; }
+</style>

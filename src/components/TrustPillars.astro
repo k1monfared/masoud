@@ -1,0 +1,57 @@
+---
+import { site } from '../data/site';
+---
+{/* TODO(copy): adjust pillar wording once experience numbers and language list are confirmed. */}
+<section class="pillars">
+  <h2 class="pillars__heading">Why work with me</h2>
+  <div class="pillars__grid">
+    <article class="pillar">
+      <div class="pillar__icon" aria-hidden="true">⚖️</div>
+      <h3 class="pillar__title">Licensed RCIC</h3>
+      <p class="pillar__body">
+        Regulated Canadian Immigration Consultant, license #{site.rcicLicense}. Bound by the College of Immigration and Citizenship Consultants Code of Conduct.
+      </p>
+    </article>
+    <article class="pillar">
+      <div class="pillar__icon" aria-hidden="true">🗣️</div>
+      <h3 class="pillar__title">Languages</h3>
+      <p class="pillar__body">
+        I work in {site.languages.join(', ')}. We discuss your case in the language you think in.
+      </p>
+    </article>
+    <article class="pillar">
+      <div class="pillar__icon" aria-hidden="true">📈</div>
+      <h3 class="pillar__title">Experience</h3>
+      <p class="pillar__body">
+        {site.yearsExperience}+ years guiding {site.clientsServed}+ clients through Canadian immigration. Plain-English explanations at every step.
+      </p>
+    </article>
+  </div>
+</section>
+
+<style>
+  .pillars { margin: var(--space-7) 0; }
+  .pillars__heading {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    text-align: center;
+    margin: 0 0 var(--space-5) 0;
+  }
+  .pillars__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  @media (min-width: 720px) {
+    .pillars__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  }
+  .pillar {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+  }
+  .pillar__icon { font-size: 28px; margin-bottom: var(--space-2); }
+  .pillar__title { font-size: var(--font-size-lg); color: var(--color-primary); margin: 0 0 var(--space-2) 0; }
+  .pillar__body { margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); line-height: 1.5; }
+</style>
