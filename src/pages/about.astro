@@ -10,60 +10,65 @@ import { path } from '../lib/path';
 <BaseLayout title={`About ${site.practitionerName} | ${site.firmName}`}>
   <BackLink href={path('/')} label="Home" />
 
-  <section class="about__hero">
-    <img class="about__photo" src={path('/images/practitioner.png')} alt={`${site.practitionerName}, ${site.firmName}`} loading="eager" />
-    <div class="about__hero-text">
-      <h1>{site.practitionerName}</h1>
-      <p class="about__role">Regulated Canadian Immigration Consultant</p>
-      <dl class="about__meta">
-        <div><dt>License</dt><dd>RCIC #{site.rcicLicense}</dd></div>
-        <div><dt>Founded</dt><dd>{site.founded}</dd></div>
-        <div><dt>Experience working with immigrants</dt><dd>{site.yearsExperience}+ years</dd></div>
-        <div><dt>Clients guided</dt><dd>{site.clientsServed}+</dd></div>
-      </dl>
+  <div class="about__layout">
+    <div class="about__main">
+      <header class="about__hero">
+        <h1>{site.practitionerName}</h1>
+        <p class="about__role">Regulated Canadian Immigration Consultant</p>
+        <dl class="about__meta">
+          <div><dt>License</dt><dd>RCIC #{site.rcicLicense}</dd></div>
+          <div><dt>Founded</dt><dd>{site.founded}</dd></div>
+          <div><dt>Experience working with immigrants</dt><dd>{site.yearsExperience}+ years</dd></div>
+          <div><dt>Clients guided</dt><dd>{site.clientsServed}+</dd></div>
+        </dl>
+      </header>
+
+      <section class="about__section">
+        <h2>Trusted Canadian immigration consulting firm</h2>
+        <p class="about__lead">{site.aboutBlurb}</p>
+      </section>
+
+      <section class="about__section">
+        <h2>My story</h2>
+        <p>
+          I came to this work through my own family's move to Canada. The forms looked like a wall. The terminology felt invented to keep people out. I learned the system because I needed to, then realized other families needed the same map I'd had to build by hand.
+        </p>
+        <p>
+          I became a Regulated Canadian Immigration Consultant so I could give that map to other people, in plain language, with the time to actually answer questions.
+        </p>
+        <p>
+          My practice is small and personal. I take on the cases I can do well. If your situation is outside my expertise, I will tell you on the first call and refer you to someone better suited.
+        </p>
+      </section>
+
+      <section class="about__section">
+        <h2>Why work with me</h2>
+        <div class="about__principles">
+          <article class="principle">
+            <h3>Free first call</h3>
+            <p>Thirty minutes, no obligation. We figure out where you stand and which paths fit, and you decide whether to keep working with me.</p>
+          </article>
+          <article class="principle">
+            <h3>Transparent fees</h3>
+            <p>Flat fees agreed in writing before any work begins. No surprises, no hourly clock running while you ask questions.</p>
+          </article>
+          <article class="principle">
+            <h3>Plain English</h3>
+            <p>I explain the rules and your options without jargon. You leave each meeting knowing what just happened and what comes next.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="about__section">
+        <h2>Languages I work in</h2>
+        <p>{site.languages.join(', ')}. I use the language you think in, not the one the form is printed in.</p>
+      </section>
     </div>
-  </section>
 
-  <section class="about__section">
-    <h2>Trusted Canadian immigration consulting firm</h2>
-    <p class="about__lead">{site.aboutBlurb}</p>
-  </section>
-
-  <section class="about__section">
-    <h2>My story</h2>
-    <p>
-      I came to this work through my own family's move to Canada. The forms looked like a wall. The terminology felt invented to keep people out. I learned the system because I needed to, then realized other families needed the same map I'd had to build by hand.
-    </p>
-    <p>
-      I became a Regulated Canadian Immigration Consultant so I could give that map to other people, in plain language, with the time to actually answer questions.
-    </p>
-    <p>
-      My practice is small and personal. I take on the cases I can do well. If your situation is outside my expertise, I will tell you on the first call and refer you to someone better suited.
-    </p>
-  </section>
-
-  <section class="about__section">
-    <h2>Why work with me</h2>
-    <div class="about__principles">
-      <article class="principle">
-        <h3>Free first call</h3>
-        <p>Thirty minutes, no obligation. We figure out where you stand and which paths fit, and you decide whether to keep working with me.</p>
-      </article>
-      <article class="principle">
-        <h3>Transparent fees</h3>
-        <p>Flat fees agreed in writing before any work begins. No surprises, no hourly clock running while you ask questions.</p>
-      </article>
-      <article class="principle">
-        <h3>Plain English</h3>
-        <p>I explain the rules and your options without jargon. You leave each meeting knowing what just happened and what comes next.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="about__section">
-    <h2>Languages I work in</h2>
-    <p>{site.languages.join(', ')}. I use the language you think in, not the one the form is printed in.</p>
-  </section>
+    <aside class="about__aside" aria-hidden="true">
+      <img class="about__photo" src={path('/images/practitioner.png')} alt={`${site.practitionerName}, ${site.firmName}`} loading="eager" />
+    </aside>
+  </div>
 
   <Accreditations />
 
@@ -75,37 +80,46 @@ import { path } from '../lib/path';
     font-size: 2rem;
     color: var(--color-text);
     margin: 0 0 var(--space-1) 0;
-    font-weight: 600;
+    font-weight: 700;
   }
   h2 {
     font-size: 1.5rem;
     color: var(--color-text);
     margin: 0 0 var(--space-3) 0;
-    font-weight: 600;
+    font-weight: 700;
   }
-  .about__hero {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+
+  .about__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
     margin: var(--space-4) 0 var(--space-6);
-    align-items: center;
-    text-align: center;
   }
-  .about__hero-text { max-width: 520px; }
   @media (min-width: 720px) {
-    .about__hero {
-      flex-direction: row-reverse;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-6);
-      text-align: left;
+    .about__layout {
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: var(--space-7);
+      align-items: start;
     }
-    h1 { font-size: 2.5rem; }
   }
+
+  .about__aside {
+    order: -1;
+    display: flex;
+    justify-content: center;
+  }
+  @media (min-width: 720px) {
+    .about__aside {
+      order: 0;
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+  }
+
   .about__photo {
     width: 240px;
     height: auto;
-    flex-shrink: 0;
     display: block;
     mask-image: linear-gradient(180deg, #000 0%, #000 90%, transparent 100%);
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 90%, transparent 100%);
@@ -113,6 +127,8 @@ import { path } from '../lib/path';
   @media (min-width: 720px) {
     .about__photo { width: 340px; }
   }
+
+  .about__hero { margin: 0 0 var(--space-6) 0; }
   .about__role {
     margin: var(--space-2) 0 var(--space-4) 0;
     color: var(--color-text-muted);
@@ -123,11 +139,7 @@ import { path } from '../lib/path';
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-3) var(--space-5);
-    max-width: 380px;
-    margin-inline: auto;
-  }
-  @media (min-width: 720px) {
-    .about__meta { margin-inline: 0; }
+    max-width: 480px;
   }
   .about__meta > div { margin: 0; }
   .about__meta dt {
@@ -155,7 +167,7 @@ import { path } from '../lib/path';
     gap: var(--space-3);
   }
   @media (min-width: 720px) {
-    .about__principles { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .about__principles { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
   }
   .principle {
     background: var(--color-surface);
@@ -165,7 +177,7 @@ import { path } from '../lib/path';
     font-size: var(--font-size-base);
     color: var(--color-primary);
     margin: 0 0 var(--space-2) 0;
-    font-weight: 600;
+    font-weight: 700;
   }
   .principle p { margin: 0; font-size: var(--font-size-sm); color: var(--color-text-muted); line-height: 1.6; }
 </style>
