@@ -78,7 +78,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   .topnav.is-scrolled {
     box-shadow: 0 4px 14px rgba(44, 58, 78, 0.08);
   }
-  .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 80px; padding: var(--space-3) 0; }
+  .topnav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 80px; padding: var(--space-3) var(--space-2); }
   .topnav__brand {
     color: inherit;
     display: inline-flex;
