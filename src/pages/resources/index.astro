@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BackLink from '../../components/BackLink.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const articles = (await getCollection('resources')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<BaseLayout title="Resources">
+  <BackLink href="/" label="Home" />
+  <h1>Resources</h1>
+  <p class="lede">Plain-English notes on Canadian immigration. Updated as policy shifts.</p>
+
+  <div class="resources__list">
+    {articles.map(a => (
+      <ArticleCard
+        title={a.data.title}
+        href={`/resources/${a.slug}`}
+        date={a.data.date}
+        summary={a.data.summary}
+        tag={a.data.tag}
+      />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { font-size: var(--font-size-2xl); color: var(--color-primary); margin: 0 0 var(--space-2) 0; }
+  .lede { color: var(--color-text-muted); margin: 0 0 var(--space-5) 0; }
+  .resources__list { display: flex; flex-direction: column; gap: var(--space-2); }
+</style>

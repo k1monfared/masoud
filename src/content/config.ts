@@ -18,7 +18,22 @@ const programs = defineCollection({
     category: z.string(),
     order: z.number(),
     summary: z.string(),
+    processingTime: z.string().optional(),
+    languageRequirement: z.string().optional(),
+    governmentFeeRange: z.string().optional(),
+    eligibilityBullets: z.array(z.string()).optional(),
+    faqs: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
   }),
 });
 
-export const collections = { goals, programs };
+const resources = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    summary: z.string(),
+    tag: z.string().optional(),
+  }),
+});
+
+export const collections = { goals, programs, resources };

@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BackLink from '../../components/BackLink.astro';
+import ConsultationCTA from '../../components/ConsultationCTA.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('resources');
+  return articles.map(a => ({ params: { slug: a.slug }, props: { article: a } }));
+}
+
+const { article } = Astro.props;
+const allArticles = await getCollection('resources');
+const others = allArticles
+  .filter(a => a.slug !== article.slug)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const formatted = article.data.date.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+const { Content } = await article.render();
+---
+<BaseLayout title={`${article.data.title} | Resources`}>
+  <BackLink href="/resources" label="All resources" />
+  <article class="post">
+    <div class="post__meta">
+      <time datetime={article.data.date.toISOString()}>{formatted}</time>
+      {article.data.tag && <span class="post__tag">{article.data.tag}</span>}
+    </div>
+    <h1>{article.data.title}</h1>
+    <p class="lede">{article.data.summary}</p>
+    <div class="prose"><Content /></div>
+  </article>
+
+  <ConsultationCTA />
+
+  {others.length > 0 && (
+    <section class="more">
+      <h2>More resources</h2>
+      <div class="more__list">
+        {others.map(a => (
+          <ArticleCard
+            title={a.data.title}
+            href={`/resources/${a.slug}`}
+            date={a.data.date}
+            summary={a.data.summary}
+            tag={a.data.tag}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  h1 { font-size: var(--font-size-2xl); color: var(--color-primary); margin: 0 0 var(--space-2) 0; }
+  h2 { font-size: var(--font-size-lg); color: var(--color-primary); margin: 0 0 var(--space-3) 0; }
+  .lede { color: var(--color-text-muted); margin: 0 0 var(--space-4) 0; }
+  .post__meta {
+    display: flex; gap: var(--space-2); align-items: center;
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+  .post__tag {
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .prose h2 { font-size: var(--font-size-lg); margin-top: var(--space-5); }
+  .prose p { line-height: 1.6; margin: var(--space-3) 0; }
+  .prose ul { padding-left: 1.2em; }
+  .prose li { margin: var(--space-1) 0; line-height: 1.6; }
+  .more { margin-top: var(--space-7); }
+  .more__list { display: flex; flex-direction: column; gap: var(--space-2); }
+</style>
