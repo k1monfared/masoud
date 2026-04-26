@@ -11,9 +11,7 @@ import { path } from '../lib/path';
   <BackLink href={path('/')} label="Home" />
 
   <section class="about__hero">
-    <div class="about__photo" aria-hidden="true">
-      <span>Your photo</span>
-    </div>
+    <img class="about__photo" src={path('/images/practitioner.png')} alt={`${site.practitionerName}, ${site.firmName}`} loading="eager" />
     <div class="about__hero-text">
       <p class="about__eyebrow">About the firm</p>
       <h1>{site.practitionerName}</h1>
@@ -110,14 +108,11 @@ import { path } from '../lib/path';
   .about__photo {
     width: 200px;
     height: 240px;
+    object-fit: cover;
+    object-position: center;
     background: var(--color-surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-muted);
-    font-size: var(--font-size-sm);
-    font-style: italic;
     flex-shrink: 0;
+    display: block;
   }
   @media (min-width: 720px) {
     .about__photo { width: 280px; height: 320px; }
