@@ -37,8 +37,8 @@
   --font-size-xl: 1.5rem;
   --font-size-2xl: 2rem;
 
-  --radius: 0;
-  --radius-pill: 0;
+  --radius: 4px;
+  --radius-pill: 4px;
   --tap-target: 44px;
   --max-width: 1080px;
   --content-width: 720px;

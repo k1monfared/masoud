@@ -24,6 +24,7 @@ const styleAttr = resolvedImage ? `--tile-image: url('${resolvedImage}')` : unde
     overflow: hidden;
     isolation: isolate;
     min-height: 64px;
+    border-radius: var(--radius);
   }
   .goaltile:hover { text-decoration: none; }
 
@@ -36,6 +37,7 @@ const styleAttr = resolvedImage ? `--tile-image: url('${resolvedImage}')` : unde
   .goaltile__card {
     position: relative;
     background: rgba(255, 255, 255, 0.78);
+    border-radius: var(--radius);
     backdrop-filter: blur(10px) saturate(1.15);
     -webkit-backdrop-filter: blur(10px) saturate(1.15);
     padding: var(--space-3) var(--space-4);

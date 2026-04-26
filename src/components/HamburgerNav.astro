@@ -202,6 +202,7 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
     transform: translateX(calc(100% + var(--space-3)));
     transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 12px 28px rgba(20, 48, 77, 0.22);
+    border-radius: var(--radius);
   }
   .drawer.is-open { transform: translateX(0); }
   .drawer[hidden] { display: none; }
@@ -287,85 +288,104 @@ const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.dat
   body.is-menu-open { overflow: hidden; }
 </style>
 
-<script>
-  // Sticky nav scroll shadow
-  const topnav = document.querySelector('.topnav');
-  if (topnav) {
-    const setScrolled = () => {
+<script is:inline>
+  (function () {
+    var menuOpen = false;
+
+    function openMenu() {
+      var drawer = document.getElementById('sitemenu');
+      var backdrop = document.querySelector('.drawer-backdrop');
+      var ham = document.querySelector('.topnav__ham');
+      if (!drawer || !backdrop || menuOpen) return;
+      menuOpen = true;
+      drawer.removeAttribute('hidden');
+      backdrop.removeAttribute('hidden');
+      requestAnimationFrame(function () {
+        drawer.classList.add('is-open');
+        backdrop.classList.add('is-visible');
+      });
+      if (ham) ham.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('is-menu-open');
+      try { history.pushState({ menuOpen: true }, ''); } catch (e) {}
+    }
+
+    function closeMenu(viaPop) {
+      var drawer = document.getElementById('sitemenu');
+      var backdrop = document.querySelector('.drawer-backdrop');
+      var ham = document.querySelector('.topnav__ham');
+      if (!drawer || !backdrop || !menuOpen) return;
+      menuOpen = false;
+      drawer.classList.remove('is-open');
+      backdrop.classList.remove('is-visible');
+      if (ham) ham.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('is-menu-open');
+      setTimeout(function () {
+        if (!menuOpen) {
+          drawer.setAttribute('hidden', '');
+          backdrop.setAttribute('hidden', '');
+        }
+      }, 280);
+      if (!viaPop && history.state && history.state.menuOpen) {
+        try { history.back(); } catch (e) {}
+      }
+    }
+
+    function setScrolled() {
+      var topnav = document.querySelector('.topnav');
+      if (!topnav) return;
       if (window.scrollY > 4) topnav.classList.add('is-scrolled');
       else topnav.classList.remove('is-scrolled');
-    };
-    setScrolled();
-    window.addEventListener('scroll', setScrolled, { passive: true });
-  }
-
-  // Mobile drawer
-  const ham = document.querySelector('.topnav__ham') as HTMLButtonElement | null;
-  const drawer = document.getElementById('sitemenu') as HTMLElement | null;
-  const closeBtn = document.querySelector('.drawer__close') as HTMLButtonElement | null;
-  const backdrop = document.querySelector('.drawer-backdrop') as HTMLElement | null;
-
-  let menuOpen = false;
-
-  function openMenu() {
-    if (!drawer || !backdrop || menuOpen) return;
-    menuOpen = true;
-    drawer.removeAttribute('hidden');
-    backdrop.removeAttribute('hidden');
-    requestAnimationFrame(() => {
-      drawer.classList.add('is-open');
-      backdrop.classList.add('is-visible');
-    });
-    ham?.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('is-menu-open');
-    history.pushState({ menuOpen: true }, '');
-  }
-
-  function closeMenu(viaPop = false) {
-    if (!drawer || !backdrop || !menuOpen) return;
-    menuOpen = false;
-    drawer.classList.remove('is-open');
-    backdrop.classList.remove('is-visible');
-    ham?.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('is-menu-open');
-    setTimeout(() => {
-      if (!menuOpen) {
-        drawer.setAttribute('hidden', '');
-        backdrop.setAttribute('hidden', '');
-      }
-    }, 280);
-    if (!viaPop && history.state && (history.state as { menuOpen?: boolean }).menuOpen) {
-      history.back();
     }
-  }
 
-  if (ham && drawer) {
-    ham.addEventListener('click', () => {
-      if (menuOpen) closeMenu();
-      else openMenu();
-    });
-  }
-  if (closeBtn) closeBtn.addEventListener('click', () => closeMenu());
-  if (backdrop) backdrop.addEventListener('click', () => closeMenu());
-
-  window.addEventListener('popstate', () => {
-    if (menuOpen) closeMenu(true);
-  });
-
-  // Close menu when a link inside is tapped
-  drawer?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      if (menuOpen) closeMenu();
-    });
-  });
-
-  // Desktop Services dropdown: close on outside click
-  const dd = document.querySelector('.topnav__dd');
-  if (dd) {
-    document.addEventListener('click', (e) => {
-      if (!dd.contains(e.target as Node)) {
-        (dd as HTMLDetailsElement).open = false;
+    function setup() {
+      // If menu was open before navigation (View Transitions), close it.
+      if (menuOpen) {
+        document.body.classList.remove('is-menu-open');
+        menuOpen = false;
       }
+
+      var ham = document.querySelector('.topnav__ham');
+      var closeBtn = document.querySelector('.drawer__close');
+      var backdrop = document.querySelector('.drawer-backdrop');
+      var drawer = document.getElementById('sitemenu');
+      var dd = document.querySelector('.topnav__dd');
+
+      if (ham) {
+        ham.onclick = function (e) {
+          e.preventDefault();
+          if (menuOpen) closeMenu();
+          else openMenu();
+        };
+      }
+      if (closeBtn) closeBtn.onclick = function () { closeMenu(); };
+      if (backdrop) backdrop.onclick = function () { closeMenu(); };
+
+      if (drawer) {
+        var links = drawer.querySelectorAll('a');
+        for (var i = 0; i < links.length; i++) {
+          links[i].onclick = function () { if (menuOpen) closeMenu(); };
+        }
+      }
+
+      if (dd) {
+        document.onclick = function (e) {
+          if (!dd.contains(e.target)) {
+            dd.open = false;
+          }
+        };
+      }
+
+      setScrolled();
+    }
+
+    // One-time global listeners
+    window.addEventListener('scroll', setScrolled, { passive: true });
+    window.addEventListener('popstate', function () {
+      if (menuOpen) closeMenu(true);
     });
-  }
+
+    document.addEventListener('astro:page-load', setup);
+    if (document.readyState !== 'loading') setup();
+    else document.addEventListener('DOMContentLoaded', setup);
+  })();
 </script>
