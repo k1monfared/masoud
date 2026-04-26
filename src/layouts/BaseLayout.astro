@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import HamburgerNav from '../components/HamburgerNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props { title: string; description?: string; }
 const { title, description = 'Canadian immigration services.' } = Astro.props;
@@ -14,6 +15,7 @@ const { title, description = 'Canadian immigration services.' } = Astro.props;
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <ViewTransitions />
   </head>
   <body>
     <HamburgerNav />
@@ -24,4 +26,12 @@ const { title, description = 'Canadian immigration services.' } = Astro.props;
 
 <style>
   .main { padding-top: var(--space-5); padding-bottom: var(--space-6); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 200ms;
+      animation-timing-function: ease-in-out;
+    }
+  }
 </style>
