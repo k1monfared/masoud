@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
+---
+<header class="topnav">
+  <div class="container topnav__inner">
+    <a class="topnav__brand" href="/">Immigration Services</a>
+    <button class="topnav__ham" aria-controls="sitemenu" aria-expanded="false" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="sitemenu" class="drawer" hidden>
+    <ul class="drawer__list">
+      {goals.map(g => (
+        <li><a href={`/${g.slug}`}>{g.data.title}</a></li>
+      ))}
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .topnav { background: var(--color-primary); color: var(--color-primary-contrast); }
+  .topnav__inner { display: flex; align-items: center; justify-content: space-between; min-height: var(--tap-target); }
+  .topnav__brand { color: inherit; font-weight: 700; }
+  .topnav__ham {
+    background: transparent; border: 0; color: inherit;
+    width: var(--tap-target); height: var(--tap-target);
+    display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  }
+  .topnav__ham span { display: block; width: 22px; height: 2px; background: currentColor; }
+  .drawer { background: var(--color-primary); }
+  .drawer[hidden] { display: none; }
+  .drawer__list { list-style: none; margin: 0; padding: var(--space-2) 0; }
+  .drawer__list li a {
+    display: block; padding: var(--space-3) var(--space-4); min-height: var(--tap-target);
+    color: var(--color-primary-contrast);
+  }
+</style>
+
+<script>
+  const btn = document.querySelector('.topnav__ham');
+  const menu = document.getElementById('sitemenu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      const open = menu.hasAttribute('hidden') ? false : true;
+      if (open) {
+        menu.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        menu.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+</script>

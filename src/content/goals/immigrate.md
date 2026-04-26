@@ -1,6 +1,5 @@
 ---
 title: Immigrate to Canada
-slug: immigrate
 icon: maple
 order: 1
 intro: Pathways to permanent residence in Canada.
