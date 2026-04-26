@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import GoalTile from './GoalTile.astro';
+const goals = (await getCollection('goals')).sort((a, b) => a.data.order - b.data.order);
+---
+<section class="goalgrid">
+  <h1 class="goalgrid__heading">I want to...</h1>
+  <p class="goalgrid__sub">Find the right path for you</p>
+  <div class="goalgrid__tiles">
+    {goals.map(g => (
+      <GoalTile title={g.data.title} slug={g.slug} icon={g.data.icon} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .goalgrid__heading { font-size: var(--font-size-2xl); margin: 0 0 var(--space-1) 0; color: var(--color-primary); text-align: center; }
+  .goalgrid__sub { color: var(--color-text-muted); text-align: center; margin: 0 0 var(--space-5) 0; }
+  .goalgrid__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  @media (min-width: 720px) {
+    .goalgrid__tiles { grid-template-columns: 1fr 1fr 1fr; }
+  }
+</style>

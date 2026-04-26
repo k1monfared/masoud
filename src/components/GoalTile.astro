@@ -1,0 +1,26 @@
+---
+interface Props { title: string; slug: string; icon: string; }
+const { title, slug, icon } = Astro.props;
+---
+<a class="goaltile" href={`/${slug}`}>
+  <span class="goaltile__icon" aria-hidden="true">{icon}</span>
+  <span class="goaltile__title">{title}</span>
+</a>
+
+<style>
+  .goaltile {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--space-2);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-primary);
+    text-decoration: none;
+    text-align: center;
+    padding: var(--space-4) var(--space-2);
+    min-height: 96px;
+    font-weight: 600;
+  }
+  .goaltile__icon { font-size: 28px; }
+  .goaltile__title { font-size: var(--font-size-base); }
+</style>
