@@ -1,8 +1,6 @@
 ---
 title: Immigrate to Canada
-icon: maple
+icon: 🍁
 order: 1
 intro: Pathways to permanent residence in Canada.
 ---
-
-This is the introductory section for users exploring permanent residence options.
