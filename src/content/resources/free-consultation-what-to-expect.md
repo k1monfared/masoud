@@ -7,6 +7,10 @@ tag: How we work
 
 <!-- TODO(copy): adjust to match how you actually run first calls. -->
 
+## In plain English
+
+The first call is a 30-minute conversation where we figure out where you stand and what your realistic options are. You do not need to have everything ready or know all the right terms. Come with a rough picture of your situation and what you want to achieve, and we will take it from there.
+
 The first call is thirty minutes, free, and structured. Here is what we cover and how to prepare.
 
 ## What we discuss

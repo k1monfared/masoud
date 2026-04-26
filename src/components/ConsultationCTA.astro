@@ -1,19 +1,20 @@
 ---
 import { bookingHref } from '../data/site';
 ---
-<a class="cta" href={bookingHref}>Book a consultation →</a>
+<a class="cta" href={bookingHref}>Book consultation</a>
 
 <style>
   .cta {
-    display: inline-flex; align-items: center;
+    display: inline-flex;
+    align-items: center;
     background: var(--color-primary);
     color: var(--color-primary-contrast);
-    padding: var(--space-3) var(--space-6);
+    padding: var(--space-3) var(--space-5);
     border-radius: var(--radius-pill);
     font-weight: 600;
+    font-size: 0.95rem;
     margin-top: var(--space-5);
     min-height: var(--tap-target);
-    box-shadow: 0 4px 14px rgba(217, 119, 78, 0.28);
     transition: background 200ms ease;
   }
   .cta:hover { text-decoration: none; background: var(--color-primary-strong); }

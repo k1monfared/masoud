@@ -7,6 +7,10 @@ tag: Guide
 
 <!-- TODO(copy): review against current IRCC guidance and update examples as needed. -->
 
+## In plain English
+
+Most study permit refusals come down to the same handful of problems: thin proof of funds, a letter of explanation that does not connect your past to your future plans, or missing evidence that you intend to leave Canada when your studies end. None of these are hard problems to fix, but they need to be addressed before you submit, not after you get a refusal.
+
 A study permit refusal can delay an academic plan by months. Most refusals come from a small set of recurring issues.
 
 ## 1. Weak proof of funds

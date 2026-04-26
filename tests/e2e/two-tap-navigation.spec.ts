@@ -17,8 +17,8 @@ test('homepage to detail page in two taps', async ({ page }) => {
   // back link visible
   await expect(page.getByRole('link', { name: /All Express Entry programs/ })).toBeVisible();
 
-  // CTA visible
-  await expect(page.getByRole('link', { name: /Book a consultation/ })).toBeVisible();
+  // CTA visible (multiple "Book consultation" links exist: nav pill + page CTA)
+  await expect(page.getByRole('link', { name: /Book consultation/ }).first()).toBeVisible();
 });
 
 test('every homepage tile leads somewhere', async ({ page }) => {

@@ -7,6 +7,10 @@ tag: Policy update
 
 <!-- TODO(copy): verify the latest published thresholds against the IRCC website before publishing. -->
 
+## In plain English
+
+Express Entry invitation scores in early 2026 are being driven mostly by category-based draws, not general draws. If your score sits in the mid-400s or below, your best shot at an invitation is qualifying for a specific category like healthcare, trades, or French-language ability, rather than waiting for a general draw to drop. A targeted plan to improve one or two inputs to your score is usually more effective than waiting.
+
 The Comprehensive Ranking System scores in early 2026 have continued the pattern of category-based draws. General draws remain less frequent than category-specific ones for healthcare, trades, and French-speaking candidates.
 
 ## What this means in practice
